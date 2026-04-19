@@ -1041,6 +1041,157 @@
     .sponsor-name { font-size: 1.4rem; }
   }
 
+  /* TOURNAMENT STATUS ALERT */
+  .tournament-alert {
+    background: linear-gradient(90deg, #3B1E6E 0%, #7B2D8B 55%, #C0392B 100%);
+    color: #fff;
+    box-shadow: 0 2px 14px rgba(123,45,139,0.25);
+    border-bottom: 3px solid var(--gold);
+  }
+  .tournament-alert .alert-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .tournament-alert .alert-icon {
+    font-size: 2rem;
+    line-height: 1;
+    flex-shrink: 0;
+    animation: alertPulse 2.5s ease-in-out infinite;
+  }
+  @keyframes alertPulse {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50%     { transform: scale(1.08); opacity: 0.85; }
+  }
+  .tournament-alert .alert-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+  }
+  .tournament-alert .alert-body {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    opacity: 0.95;
+  }
+  .tournament-alert .alert-body strong {
+    color: var(--gold-light);
+    font-weight: 700;
+  }
+  @media (max-width: 640px) {
+    .tournament-alert .alert-inner { padding: 12px 14px; gap: 10px; }
+    .tournament-alert .alert-icon  { font-size: 1.55rem; }
+    .tournament-alert .alert-title { font-size: 0.88rem; }
+    .tournament-alert .alert-body  { font-size: 0.78rem; line-height: 1.4; }
+  }
+
+  /* WEATHER WIDGET */
+  .weather-widget {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 28px;
+    box-shadow: 0 2px 8px rgba(26,46,74,0.05);
+  }
+  .weather-loading, .weather-error {
+    text-align: center;
+    padding: 26px 12px;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+  }
+  .weather-error { color: var(--red); }
+  .weather-error a { color: var(--navy); }
+  .weather-summary {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+  .weather-verdict {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+  }
+  .weather-verdict.good    { background: var(--green-bg); color: var(--green); }
+  .weather-verdict.caution { background: #FFF3D6;          color: var(--orange); }
+  .weather-verdict.bad     { background: var(--red-bg);    color: var(--red); }
+  .weather-meta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+  .weather-meta strong { color: var(--text); font-weight: 600; }
+  .weather-hourly {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+    gap: 8px;
+  }
+  .wx-hour {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 4px;
+    text-align: center;
+    font-size: 0.78rem;
+    transition: transform 0.15s ease;
+  }
+  .wx-hour:hover { transform: translateY(-2px); }
+  .wx-hour.playing-window {
+    border-color: var(--gold);
+    background: #FFF8E3;
+    box-shadow: inset 0 0 0 1px var(--gold);
+  }
+  .wx-hour.rainy    { background: #EAF1FB; border-color: #BCD1EE; }
+  .wx-hour.heavy-rain, .wx-hour.thunder {
+    background: #DCE7F7; border-color: #94B3DC;
+  }
+  .wx-hour.thunder { background: #E9DBF5; border-color: #C2A4DE; }
+  .wx-hour .hr-time {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 0.74rem;
+    letter-spacing: 0.5px;
+  }
+  .wx-hour .hr-icon { font-size: 1.35rem; line-height: 1.3; margin: 2px 0; }
+  .wx-hour .hr-temp { font-weight: 700; color: var(--text); font-size: 0.92rem; }
+  .wx-hour .hr-rain { color: var(--text-muted); font-size: 0.7rem; margin-top: 1px; }
+  .wx-hour.rainy .hr-rain,
+  .wx-hour.heavy-rain .hr-rain { color: #1E5FBF; font-weight: 600; }
+  .wx-hour.thunder .hr-rain { color: #7B2D8B; font-weight: 600; }
+  .weather-footer {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .weather-footer a { color: var(--text-muted); }
+  @media (max-width: 600px) {
+    .weather-hourly { grid-template-columns: repeat(auto-fill, minmax(66px, 1fr)); gap: 6px; }
+    .wx-hour        { padding: 6px 3px; }
+    .wx-hour .hr-icon { font-size: 1.1rem; }
+    .wx-hour .hr-temp { font-size: 0.82rem; }
+    .wx-hour .hr-time { font-size: 0.68rem; }
+    .wx-hour .hr-rain { font-size: 0.64rem; }
+  }
+
   /* RESPONSIVE */
   @media (max-width: 640px) {
     .header-inner { padding: 10px 14px; }
@@ -1675,6 +1826,17 @@
   </div>
 </nav>
 
+<!-- TOURNAMENT STATUS ALERT -->
+<div class="tournament-alert" role="alert" aria-live="polite">
+  <div class="alert-inner">
+    <span class="alert-icon" aria-hidden="true">🌧️</span>
+    <div class="alert-text">
+      <div class="alert-title">Rain washed out Saturday, April 18th</div>
+      <div class="alert-body">The organizing team is on the watch-out for <strong>Saturday, April 25th</strong>, considering weather and player availability. Check back for updates.</div>
+    </div>
+  </div>
+</div>
+
 <main>
 
   <!-- HOME PAGE -->
@@ -1693,6 +1855,11 @@
         <span class="event-pill">📍 Russell Creek Volleyball Courts</span>
         <span class="event-pill">🏆 5 Teams Competing</span>
       </div>
+    </div>
+
+    <div class="section-title">Weather Watch — Saturday, April 25</div>
+    <div class="weather-widget" id="weather-widget">
+      <div class="weather-loading">Loading hourly forecast for Russell Creek Park, Plano TX…</div>
     </div>
 
     <div class="section-title">Live Standings</div>
@@ -3326,6 +3493,145 @@ document.getElementById('match-modal').addEventListener('click', function(e) {
 
 // Init
 renderHomePage();
+
+// ============================================================
+// WEATHER WIDGET — hourly forecast for tournament reschedule date
+// Source: Open-Meteo (free, no API key)
+// ============================================================
+(function(){
+  const LAT = 33.0517;       // Russell Creek Park, Plano TX
+  const LON = -96.7475;
+  const TARGET_DATE = '2026-04-25';   // target Saturday
+  const PLAY_START  = 7;              // 7 AM (inclusive)
+  const PLAY_END    = 12;             // through 11 AM (hour 11 inclusive)
+
+  // WMO weather codes -> [emoji, label]
+  const WMO = {
+    0:['☀️','Clear'], 1:['🌤️','Mostly clear'], 2:['⛅','Partly cloudy'], 3:['☁️','Overcast'],
+    45:['🌫️','Fog'], 48:['🌫️','Rime fog'],
+    51:['🌦️','Light drizzle'], 53:['🌦️','Drizzle'], 55:['🌧️','Heavy drizzle'],
+    56:['🌧️','Freezing drizzle'], 57:['🌧️','Freezing drizzle'],
+    61:['🌧️','Light rain'], 63:['🌧️','Rain'], 65:['🌧️','Heavy rain'],
+    66:['🌧️','Freezing rain'], 67:['🌧️','Freezing rain'],
+    71:['🌨️','Light snow'], 73:['🌨️','Snow'], 75:['❄️','Heavy snow'], 77:['🌨️','Snow grains'],
+    80:['🌦️','Showers'], 81:['🌧️','Heavy showers'], 82:['⛈️','Violent showers'],
+    85:['🌨️','Snow showers'], 86:['🌨️','Heavy snow showers'],
+    95:['⛈️','Thunderstorm'], 96:['⛈️','T-storm + hail'], 99:['⛈️','Severe t-storm']
+  };
+  const THUNDER_CODES = new Set([95,96,99]);
+  const HEAVY_CODES   = new Set([65,67,75,81,82,86]);
+
+  function wmo(c){ return WMO[c] || ['❓','Unknown']; }
+
+  function playWindowVerdict(hours){
+    // Focus verdict on the 7–11 AM play window only
+    const win = hours.filter(h => h.hour >= PLAY_START && h.hour < PLAY_END);
+    if (win.length === 0) return { cls:'caution', label:'No data' };
+    const maxPop = Math.max(...win.map(h => h.pop || 0));
+    const totalPrecip = win.reduce((s,h) => s + (h.precip || 0), 0);
+    const maxCode = win.reduce((m,h) => Math.max(m, h.code || 0), 0);
+    if (THUNDER_CODES.has(maxCode) || totalPrecip > 0.25 || maxPop >= 70) {
+      return { cls:'bad', label:'Unfavorable' };
+    }
+    if (maxPop >= 40 || totalPrecip > 0.05 || HEAVY_CODES.has(maxCode)) {
+      return { cls:'caution', label:'Watch Closely' };
+    }
+    return { cls:'good', label:'Favorable' };
+  }
+
+  function formatHour(h){
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const h12 = h === 0 ? 12 : (h > 12 ? h - 12 : h);
+    return h12 + ' ' + ampm;
+  }
+
+  async function loadWeather(){
+    const el = document.getElementById('weather-widget');
+    if (!el) return;
+    const url = 'https://api.open-meteo.com/v1/forecast'
+      + '?latitude=' + LAT + '&longitude=' + LON
+      + '&hourly=temperature_2m,precipitation_probability,precipitation,weathercode,wind_speed_10m'
+      + '&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch'
+      + '&timezone=America%2FChicago'
+      + '&start_date=' + TARGET_DATE + '&end_date=' + TARGET_DATE;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      if (!data.hourly || !data.hourly.time || !data.hourly.time.length) {
+        // April 25 may be outside the ~16-day forecast horizon
+        throw new Error('No hourly data returned (forecast may not be available yet)');
+      }
+      renderWeather(el, data.hourly);
+    } catch (err) {
+      el.innerHTML = '<div class="weather-error">⚠️ Could not load forecast for '
+        + TARGET_DATE + ' (' + err.message + ').<br>'
+        + 'Try <a href="https://forecast.weather.gov/MapClick.php?lat=' + LAT + '&lon=' + LON
+        + '" target="_blank" rel="noopener">NWS forecast for Plano</a>.</div>';
+    }
+  }
+
+  function renderWeather(el, h){
+    const hours = h.time.map(function(t, i){
+      return {
+        time: t,
+        hour: new Date(t).getHours(),
+        temp: Math.round(h.temperature_2m[i]),
+        pop:  h.precipitation_probability ? (h.precipitation_probability[i] || 0) : 0,
+        precip: h.precipitation[i] || 0,
+        code: h.weathercode[i] || 0,
+        wind: Math.round(h.wind_speed_10m[i] || 0)
+      };
+    });
+
+    const temps = hours.map(x => x.temp);
+    const minTemp = Math.min.apply(null, temps);
+    const maxTemp = Math.max.apply(null, temps);
+    const maxPop  = Math.max.apply(null, hours.map(x => x.pop));
+    const totalPrecip = hours.reduce((s,x) => s + x.precip, 0);
+    const v = playWindowVerdict(hours);
+
+    const hoursHTML = hours.map(function(hr){
+      const info = wmo(hr.code);
+      const inWindow = hr.hour >= PLAY_START && hr.hour < PLAY_END;
+      const classes = ['wx-hour'];
+      if (inWindow) classes.push('playing-window');
+      if (THUNDER_CODES.has(hr.code)) classes.push('thunder');
+      else if (HEAVY_CODES.has(hr.code) || hr.precip > 0.1) classes.push('heavy-rain');
+      else if (hr.pop >= 50) classes.push('rainy');
+      return '<div class="' + classes.join(' ') + '" title="' + info[1]
+        + ' · wind ' + hr.wind + ' mph">'
+        + '<div class="hr-time">' + formatHour(hr.hour) + '</div>'
+        + '<div class="hr-icon">' + info[0] + '</div>'
+        + '<div class="hr-temp">' + hr.temp + '°</div>'
+        + '<div class="hr-rain">' + hr.pop + '%</div>'
+        + '</div>';
+    }).join('');
+
+    el.innerHTML =
+      '<div class="weather-summary">'
+      + '<span class="weather-verdict ' + v.cls + '" title="Assessment of 7\u201311 AM play window">Play window: ' + v.label + '</span>'
+      + '<div class="weather-meta">'
+      +   '<span><strong>' + minTemp + '°–' + maxTemp + '°F</strong></span>'
+      +   '<span>Max rain chance: <strong>' + maxPop + '%</strong></span>'
+      +   '<span>Expected precip: <strong>' + totalPrecip.toFixed(2) + '″</strong></span>'
+      +   '<span>📍 Russell Creek Park · Plano TX</span>'
+      + '</div>'
+      + '</div>'
+      + '<div class="weather-hourly">' + hoursHTML + '</div>'
+      + '<div class="weather-footer">'
+      +   'Play window (7–11 AM) highlighted in gold · Forecast from '
+      +   '<a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>'
+      +   ' · updates on page reload'
+      + '</div>';
+  }
+
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', loadWeather);
+  } else {
+    loadWeather();
+  }
+})();
 </script>
 </body>
 </html>
