@@ -1099,7 +1099,7 @@
     margin-bottom: 28px;
     box-shadow: 0 2px 8px rgba(26,46,74,0.05);
   }
-  .weather-loading, .weather-error {
+  .weather-loading, .weather-error, .weather-pending {
     text-align: center;
     padding: 26px 12px;
     color: var(--text-muted);
@@ -1107,6 +1107,7 @@
   }
   .weather-error { color: var(--red); }
   .weather-error a { color: var(--navy); }
+  .weather-pending strong { color: var(--text); font-weight: 600; }
   .weather-summary {
     display: flex;
     align-items: center;
@@ -3545,9 +3546,31 @@ renderHomePage();
     return h12 + ' ' + ampm;
   }
 
+  // Open-Meteo's hourly forecast reaches ~16 days out.
+  const HORIZON_DAYS = 16;
+
+  function fmtLongDate(d){
+    return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  }
+
   async function loadWeather(){
     const el = document.getElementById('weather-widget');
     if (!el) return;
+
+    // If the target is still beyond the forecast horizon, show a friendly
+    // "available starting..." note instead of attempting a doomed fetch.
+    const targetMs = new Date(TARGET_DATE + 'T00:00:00').getTime();
+    const todayStart = new Date(); todayStart.setHours(0,0,0,0);
+    const daysOut = Math.ceil((targetMs - todayStart.getTime()) / 86400000);
+    if (daysOut > HORIZON_DAYS) {
+      const availableFrom = new Date(targetMs - HORIZON_DAYS * 86400000);
+      el.innerHTML = '<div class="weather-pending">⏳ Hourly forecast for <strong>'
+        + fmtLongDate(new Date(targetMs)) + '</strong> isn\u2019t published yet. '
+        + 'We\u2019ll be able to track weather for tournament day starting <strong>'
+        + fmtLongDate(availableFrom) + '</strong>. Check back then!</div>';
+      return;
+    }
+
     const url = 'https://api.open-meteo.com/v1/forecast'
       + '?latitude=' + LAT + '&longitude=' + LON
       + '&hourly=temperature_2m,precipitation_probability,precipitation,weathercode,wind_speed_10m'
@@ -3559,8 +3582,7 @@ renderHomePage();
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
       if (!data.hourly || !data.hourly.time || !data.hourly.time.length) {
-        // May 9 may be outside the ~16-day forecast horizon
-        throw new Error('No hourly data returned (forecast may not be available yet)');
+        throw new Error('No hourly data returned');
       }
       renderWeather(el, data.hourly);
     } catch (err) {
