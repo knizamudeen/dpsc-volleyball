@@ -1779,7 +1779,7 @@
       <div class="logo-ball">🏐</div>
       <div class="title-block">
         <h1>DPSC Spring 2026</h1>
-        <p>Sand Volleyball Tournament · Russell Creek · Apr 18</p>
+        <p>Sand Volleyball Tournament · Russell Creek · May 9</p>
       </div>
     </div>
     <nav>
@@ -1831,8 +1831,8 @@
   <div class="alert-inner">
     <span class="alert-icon" aria-hidden="true">🌧️</span>
     <div class="alert-text">
-      <div class="alert-title">Rain washed out Saturday, April 18th</div>
-      <div class="alert-body">The organizing team is on the watch-out for <strong>Saturday, April 25th</strong>, considering weather and player availability. Check back for updates.</div>
+      <div class="alert-title">Tournament rescheduled to Saturday, May 9th</div>
+      <div class="alert-body">After earlier weather delays, the organizing team has set a new tournament date of <strong>Saturday, May 9th, 2026</strong> at Russell Creek Volleyball Courts. See you on the sand!</div>
     </div>
   </div>
 </div>
@@ -1850,14 +1850,14 @@
         </div>
       </div>
       <div class="event-details">
-        <span class="event-pill">📅 April 18, 2026</span>
+        <span class="event-pill">📅 May 9, 2026</span>
         <span class="event-pill">⏰ 7:00 AM – 11:30 AM</span>
         <span class="event-pill">📍 Russell Creek Volleyball Courts</span>
         <span class="event-pill">🏆 5 Teams Competing</span>
       </div>
     </div>
 
-    <div class="section-title">Weather Watch — Saturday, April 25</div>
+    <div class="section-title">Weather Watch — Saturday, May 9</div>
     <div class="weather-widget" id="weather-widget">
       <div class="weather-loading">Loading hourly forecast for Russell Creek Park, Plano TX…</div>
     </div>
@@ -1904,7 +1904,7 @@
   <div id="page-schedule" class="page">
     <div class="hero" style="padding:clamp(16px,4vw,24px) clamp(14px,4vw,32px); margin-bottom:16px;">
       <h2 style="font-size:clamp(1.3rem,4vw,2.5rem);">Official Round Robin Schedule</h2>
-      <p>April 18, 2026 · Russell Creek Volleyball Courts</p>
+      <p>May 9, 2026 · Russell Creek Volleyball Courts</p>
       <div class="event-details" style="margin-top:12px;">
         <span class="event-pill">⏱ All Games 30 Mins</span>
         <span class="event-pill">😴 Mandatory Rest After 2 Games</span>
@@ -2959,7 +2959,7 @@ function renderHomePage() {
   const recent = matchData.filter(m => m.status === 'completed').slice(-4);
   const upcoming = matchData.filter(m => m.status !== 'completed').slice(0, 2);
   const cards = [...recent, ...upcoming];
-  document.getElementById('home-recent-matches').innerHTML = cards.length ? cards.map(m => matchCardHTML(m)).join('') : '<p style="color:var(--grey); padding:20px;">No results yet. Tournament starts April 18!</p>';
+  document.getElementById('home-recent-matches').innerHTML = cards.length ? cards.map(m => matchCardHTML(m)).join('') : '<p style="color:var(--grey); padding:20px;">No results yet. Tournament starts May 9!</p>';
 
   // Check if Grand Final just completed and trigger celebration
   const fin = matchData.find(m => m.id === 'final');
@@ -3501,7 +3501,7 @@ renderHomePage();
 (function(){
   const LAT = 33.0517;       // Russell Creek Park, Plano TX
   const LON = -96.7475;
-  const TARGET_DATE = '2026-04-25';   // target Saturday
+  const TARGET_DATE = '2026-05-09';   // target Saturday (May 9)
   const PLAY_START  = 7;              // 7 AM (inclusive)
   const PLAY_END    = 12;             // through 11 AM (hour 11 inclusive)
 
@@ -3559,7 +3559,7 @@ renderHomePage();
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
       if (!data.hourly || !data.hourly.time || !data.hourly.time.length) {
-        // April 25 may be outside the ~16-day forecast horizon
+        // May 9 may be outside the ~16-day forecast horizon
         throw new Error('No hourly data returned (forecast may not be available yet)');
       }
       renderWeather(el, data.hourly);
