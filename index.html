@@ -1083,7 +1083,45 @@
     color: var(--gold-light);
     font-weight: 700;
   }
+  .alert-countdown {
+    margin-left: auto;
+    flex-shrink: 0;
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+  }
+  .countdown-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 42px;
+  }
+  .countdown-num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--gold-light);
+  }
+  .countdown-label {
+    font-size: 0.55rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin-top: 2px;
+  }
+  .countdown-sep {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    opacity: 0.5;
+    padding-bottom: 6px;
+  }
   @media (max-width: 640px) {
+    .alert-countdown { gap: 5px; }
+    .countdown-num { font-size: 1.2rem; }
+    .countdown-unit { min-width: 30px; }
     .tournament-alert .alert-inner { padding: 12px 14px; gap: 10px; }
     .tournament-alert .alert-icon  { font-size: 1.55rem; }
     .tournament-alert .alert-title { font-size: 0.88rem; }
@@ -1830,10 +1868,18 @@
 <!-- TOURNAMENT STATUS ALERT -->
 <div class="tournament-alert" role="alert" aria-live="polite">
   <div class="alert-inner">
-    <span class="alert-icon" aria-hidden="true">🌧️</span>
     <div class="alert-text">
       <div class="alert-title">Tournament rescheduled to Saturday, May 9th</div>
       <div class="alert-body">After earlier weather delays, the organizing team has set a new tournament date of <strong>Saturday, May 9th, 2026</strong> at Russell Creek Volleyball Courts. See you on the sand!</div>
+    </div>
+    <div class="alert-countdown" id="alert-countdown">
+      <div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-label">Days</span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-hrs">--</span><span class="countdown-label">Hrs</span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-min">--</span><span class="countdown-label">Min</span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-sec">--</span><span class="countdown-label">Sec</span></div>
     </div>
   </div>
 </div>
@@ -3653,6 +3699,29 @@ renderHomePage();
   } else {
     loadWeather();
   }
+})();
+</script>
+<script>
+(function() {
+  const GAME_DAY = new Date('2026-05-09T08:00:00');
+  const pad = n => String(n).padStart(2, '0');
+  function tick() {
+    const diff = GAME_DAY - Date.now();
+    if (diff <= 0) {
+      document.getElementById('alert-countdown').innerHTML = '<span style="font-family:\'Oswald\',sans-serif;font-size:1.1rem;font-weight:700;color:var(--gold-light);letter-spacing:1px;">GAME DAY! 🏐</span>';
+      return;
+    }
+    const days = Math.floor(diff / 86400000);
+    const hrs  = Math.floor((diff % 86400000) / 3600000);
+    const min  = Math.floor((diff % 3600000)  / 60000);
+    const sec  = Math.floor((diff % 60000)    / 1000);
+    document.getElementById('cd-days').textContent = pad(days);
+    document.getElementById('cd-hrs').textContent  = pad(hrs);
+    document.getElementById('cd-min').textContent  = pad(min);
+    document.getElementById('cd-sec').textContent  = pad(sec);
+  }
+  tick();
+  setInterval(tick, 1000);
 })();
 </script>
 </body>
