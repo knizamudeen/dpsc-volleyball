@@ -4111,6 +4111,7 @@ ${matchesBlock}
 ${rulesBlock}
 
 When asked about rules, cite the rule number. When asked about standings or stats, use the live data above.
+You also have access to live tools: use get_weather_forecast when asked about weather or playing conditions at the venue, and get_time_until_game when asked about the countdown or time remaining until the tournament.
 If a question is outside the tournament scope, politely say you can only help with tournament-related questions.`;
   }
 
@@ -4123,6 +4124,171 @@ If a question is outside the tournament scope, politely say you can only help wi
 
   let conversationHistory = [];
 
+  /* ─── Tool definitions ─── */
+  const TOOLS = [
+    {
+      name: 'get_weather_forecast',
+      description: 'Get the current weather and multi-day forecast for Russell Creek Park, Plano TX — the tournament venue. Use this when the user asks about weather, rain, temperature, wind, or playing conditions.',
+      input_schema: {
+        type: 'object',
+        properties: {
+          days: {
+            type: 'integer',
+            description: 'Number of forecast days to retrieve (1–7). Default: 3.',
+          }
+        },
+        required: []
+      }
+    },
+    {
+      name: 'get_time_until_game',
+      description: 'Get the exact time remaining until the DPSC Spring 2026 Volleyball Tournament starts (May 9 2026, 7:00 AM CDT). Use this when the user asks how long until the tournament, days left, or any countdown question.',
+      input_schema: {
+        type: 'object',
+        properties: {},
+        required: []
+      }
+    }
+  ];
+
+  /* ─── WMO weather-code lookup ─── */
+  function weatherCodeToText(code) {
+    const WMO = {
+      0:'Clear sky', 1:'Mainly clear', 2:'Partly cloudy', 3:'Overcast',
+      45:'Foggy', 48:'Icy fog',
+      51:'Light drizzle', 53:'Moderate drizzle', 55:'Dense drizzle',
+      61:'Slight rain', 63:'Moderate rain', 65:'Heavy rain',
+      71:'Slight snow', 73:'Moderate snow', 75:'Heavy snow',
+      80:'Slight rain showers', 81:'Moderate rain showers', 82:'Violent rain showers',
+      95:'Thunderstorm', 96:'Thunderstorm with hail', 99:'Thunderstorm with heavy hail'
+    };
+    return WMO[code] || `Conditions (code ${code})`;
+  }
+
+  /* ─── Tool executor ─── */
+  async function executeTool(name, input) {
+    if (name === 'get_weather_forecast') {
+      const days = Math.min(Math.max(input.days || 3, 1), 7);
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=33.0198&longitude=-96.6989` +
+        `&current=temperature_2m,apparent_temperature,precipitation,weathercode,windspeed_10m` +
+        `&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max` +
+        `&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch` +
+        `&timezone=America%2FChicago&forecast_days=${days}`;
+      const data = await fetch(url).then(r => r.json());
+      const c = data.current;
+      let out = `Current conditions at Russell Creek Park, Plano TX:\n`;
+      out += `• Temperature: ${c.temperature_2m}°F (feels like ${c.apparent_temperature}°F)\n`;
+      out += `• Conditions: ${weatherCodeToText(c.weathercode)}\n`;
+      out += `• Wind: ${c.windspeed_10m} mph\n`;
+      out += `• Precipitation now: ${c.precipitation} in\n\n`;
+      out += `${days}-Day Forecast:\n`;
+      const d = data.daily;
+      for (let i = 0; i < d.time.length; i++) {
+        out += `${d.time[i]}: ${weatherCodeToText(d.weathercode[i])}, ` +
+          `High ${d.temperature_2m_max[i]}°F / Low ${d.temperature_2m_min[i]}°F, ` +
+          `Rain ${d.precipitation_sum[i]} in, Wind up to ${d.windspeed_10m_max[i]} mph\n`;
+      }
+      return out;
+    }
+
+    if (name === 'get_time_until_game') {
+      const gameTime = new Date('2026-05-09T07:00:00-05:00');
+      const now = new Date();
+      const diff = gameTime - now;
+      if (diff <= 0) return 'The tournament has already started (or is underway)!';
+      const days    = Math.floor(diff / 86400000);
+      const hours   = Math.floor((diff % 86400000) / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      return `The DPSC Spring 2026 Volleyball Tournament starts on Saturday, May 9 2026 at 7:00 AM CDT.\n` +
+        `Time remaining: ${days} day${days !== 1 ? 's' : ''}, ${hours} hour${hours !== 1 ? 's' : ''}, and ${minutes} minute${minutes !== 1 ? 's' : ''}.`;
+    }
+
+    return `Unknown tool: ${name}`;
+  }
+
+  /* ─── Low-level streaming helper ─── */
+  async function streamResponse(messages, onChunk) {
+    const apiKey = window._anthropicApiKey;
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 1024,
+        system: buildSystemPrompt(),
+        messages,
+        tools: TOOLS,
+        stream: true,
+      }),
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      const msg = err?.error?.message || `HTTP ${res.status}`;
+      if (res.status === 401) throw new Error('Invalid API key. Please check your key in the Admin panel.');
+      if (res.status === 429) throw new Error('Rate limit hit. Please wait a moment and try again.');
+      throw new Error(msg);
+    }
+
+    const reader  = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+    let contentBlocks = [];
+    let currentBlock  = null;
+    let stopReason    = null;
+    let fullText      = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const raw = line.slice(6).trim();
+        if (raw === '[DONE]') continue;
+        try {
+          const ev = JSON.parse(raw);
+
+          if (ev.type === 'content_block_start') {
+            currentBlock = { ...ev.content_block };
+            if (currentBlock.type === 'tool_use') currentBlock._json = '';
+            contentBlocks.push(currentBlock);
+          }
+          else if (ev.type === 'content_block_delta') {
+            if (ev.delta.type === 'text_delta' && currentBlock?.type === 'text') {
+              currentBlock.text = (currentBlock.text || '') + ev.delta.text;
+              fullText += ev.delta.text;
+              onChunk(fullText);
+            } else if (ev.delta.type === 'input_json_delta' && currentBlock?.type === 'tool_use') {
+              currentBlock._json = (currentBlock._json || '') + ev.delta.partial_json;
+            }
+          }
+          else if (ev.type === 'content_block_stop') {
+            if (currentBlock?.type === 'tool_use') {
+              try { currentBlock.input = JSON.parse(currentBlock._json || '{}'); } catch (_) { currentBlock.input = {}; }
+              delete currentBlock._json;
+            }
+            currentBlock = null;
+          }
+          else if (ev.type === 'message_delta') {
+            stopReason = ev.delta.stop_reason;
+          }
+        } catch (_) {}
+      }
+    }
+
+    return { contentBlocks, stopReason, fullText };
+  }
+
+  /* ─── Main LLM orchestrator (handles tool-use loops) ─── */
   async function callLLM(userMessage, onChunk, onDone, onError) {
     const apiKey = window._anthropicApiKey;
     if (!apiKey) {
@@ -4135,61 +4301,57 @@ If a question is outside the tournament scope, politely say you can only help wi
       conversationHistory = conversationHistory.slice(-HISTORY_LIMIT);
     }
 
-    let fullText = '';
     try {
-      const res = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true',
-        },
-        body: JSON.stringify({
-          model: MODEL,
-          max_tokens: 1024,
-          system: buildSystemPrompt(),
-          messages: conversationHistory,
-          stream: true,
-        }),
-      });
+      // First API call — may end with tool_use
+      const { contentBlocks, stopReason, fullText } = await streamResponse(conversationHistory, onChunk);
 
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        const msg = err?.error?.message || `HTTP ${res.status}`;
-        if (res.status === 401) throw new Error('Invalid API key. Please check your key in ⚙️ settings.');
-        if (res.status === 429) throw new Error('Rate limit hit. Please wait a moment and try again.');
-        throw new Error(msg);
-      }
+      if (stopReason === 'tool_use') {
+        // Show a status indicator while tools run
+        onChunk((fullText ? fullText + '\n\n' : '') + '⚙️ *Fetching live data…*');
 
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = '';
+        // Reconstruct the assistant message content for the API
+        const assistantContent = contentBlocks.map(b => {
+          if (b.type === 'text')     return { type: 'text', text: b.text || '' };
+          if (b.type === 'tool_use') return { type: 'tool_use', id: b.id, name: b.name, input: b.input };
+          return b;
+        });
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-        buffer = lines.pop();
-        for (const line of lines) {
-          if (!line.startsWith('data: ')) continue;
-          const data = line.slice(6).trim();
-          if (data === '[DONE]') continue;
-          try {
-            const parsed = JSON.parse(data);
-            if (parsed.type === 'content_block_delta' && parsed.delta?.type === 'text_delta') {
-              fullText += parsed.delta.text;
-              onChunk(fullText);
+        // Execute all tool calls (in parallel)
+        const toolUseBlocks = contentBlocks.filter(b => b.type === 'tool_use');
+        const toolResults   = await Promise.all(
+          toolUseBlocks.map(async tb => {
+            try {
+              const output = await executeTool(tb.name, tb.input || {});
+              return { type: 'tool_result', tool_use_id: tb.id, content: output };
+            } catch (e) {
+              return { type: 'tool_result', tool_use_id: tb.id, content: `Error: ${e.message}`, is_error: true };
             }
-          } catch (_) {}
-        }
-      }
+          })
+        );
 
-      conversationHistory.push({ role: 'assistant', content: fullText });
-      onDone(fullText);
+        // Build full message list for second call
+        const msgsWithTools = [
+          ...conversationHistory,
+          { role: 'assistant', content: assistantContent },
+          { role: 'user',      content: toolResults },
+        ];
+
+        // Second call — stream the final answer
+        let finalText = '';
+        const { fullText: ft } = await streamResponse(msgsWithTools, chunk => {
+          finalText = chunk;
+          onChunk(chunk);
+        });
+        finalText = ft;
+
+        conversationHistory.push({ role: 'assistant', content: finalText });
+        onDone(finalText);
+      } else {
+        // Normal end_turn
+        conversationHistory.push({ role: 'assistant', content: fullText });
+        onDone(fullText);
+      }
     } catch (err) {
-      // Remove the user message we added if the call failed
       conversationHistory.pop();
       onError(err.message || 'Something went wrong. Please try again.');
     }
