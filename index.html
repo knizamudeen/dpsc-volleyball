@@ -2250,41 +2250,6 @@
       <button class="btn btn-outline" onclick="adminLogout()">Logout</button>
     </div>
 
-    <!-- Firebase Setup -->
-    <div class="admin-section" id="firebase-setup">
-      <h3>🔥 Step 1: Connect Firebase (Required for Live Sync)</h3>
-      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px; line-height:1.7;">
-        Scores need a free Firebase database to sync to all viewers in real-time.<br>
-        <strong style="color:var(--text);">One-time setup takes ~3 minutes:</strong>
-      </p>
-      <ol style="color:var(--text); font-size:0.85rem; line-height:2; padding-left:20px; margin-bottom:20px;">
-        <li>Go to <strong style="color:var(--gold-dark);">console.firebase.google.com</strong> → Sign in with Google</li>
-        <li>Click <strong style="color:var(--text);">"Add project"</strong> → Name it <code style="background:var(--border);padding:1px 6px;border-radius:3px;color:var(--navy);">dpsc2026</code> → Continue (disable Analytics) → Create</li>
-        <li>In left sidebar click <strong style="color:var(--text);">"Realtime Database"</strong> → "Create database"</li>
-        <li>Choose any location → Select <strong style="color:var(--text);">"Start in test mode"</strong> → Enable</li>
-        <li>Copy the URL shown (looks like <code style="background:var(--border);padding:1px 6px;border-radius:3px;color:var(--navy);">https://dpsc2026-xxxxx-default-rtdb.firebaseio.com</code>)</li>
-        <li>Paste it below and click Connect</li>
-      </ol>
-      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
-        <div class="form-group" style="flex:1; min-width:280px;">
-          <label>Firebase Realtime Database URL</label>
-          <input id="fb-db-url" type="text" placeholder="https://your-project-default-rtdb.firebaseio.com" style="background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Source Sans 3',sans-serif;font-size:0.9rem;padding:10px 14px;width:100%;outline:none;">
-        </div>
-        <button class="btn btn-gold" onclick="connectFirebase()">Connect & Start Sync</button>
-      </div>
-    </div>
-
-    <!-- Firebase reconnect (shown when already connected) -->
-    <div class="admin-section" id="firebase-connected-panel" style="display:none;">
-      <h3>🔥 Firebase Database</h3>
-      <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
-        <span id="fb-connected-url" style="font-family:'Oswald',sans-serif; font-size:0.85rem; color:var(--text-muted);"></span>
-        <span style="color:var(--green); font-family:'Oswald',sans-serif; font-size:0.85rem;">🟢 Connected for this session</span>
-        <button class="btn btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="disconnectFirebase()">Change DB</button>
-      </div>
-      <div id="fb-bake-instruction"></div>
-    </div>
-
     <!-- Enter Match Score -->
     <div class="admin-section">
       <h3>Enter / Update Match Score</h3>
@@ -2365,6 +2330,60 @@
           </tbody>
         </table>
       </div>
+    </div>
+
+    <!-- Firebase Setup -->
+    <div class="admin-section" id="firebase-setup">
+      <h3>🔥 Connect Firebase (Required for Live Sync)</h3>
+      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px; line-height:1.7;">
+        Scores need a free Firebase database to sync to all viewers in real-time.<br>
+        <strong style="color:var(--text);">One-time setup takes ~3 minutes:</strong>
+      </p>
+      <ol style="color:var(--text); font-size:0.85rem; line-height:2; padding-left:20px; margin-bottom:20px;">
+        <li>Go to <strong style="color:var(--gold-dark);">console.firebase.google.com</strong> → Sign in with Google</li>
+        <li>Click <strong style="color:var(--text);">"Add project"</strong> → Name it <code style="background:var(--border);padding:1px 6px;border-radius:3px;color:var(--navy);">dpsc2026</code> → Continue (disable Analytics) → Create</li>
+        <li>In left sidebar click <strong style="color:var(--text);">"Realtime Database"</strong> → "Create database"</li>
+        <li>Choose any location → Select <strong style="color:var(--text);">"Start in test mode"</strong> → Enable</li>
+        <li>Copy the URL shown (looks like <code style="background:var(--border);padding:1px 6px;border-radius:3px;color:var(--navy);">https://dpsc2026-xxxxx-default-rtdb.firebaseio.com</code>)</li>
+        <li>Paste it below and click Connect</li>
+      </ol>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+        <div class="form-group" style="flex:1; min-width:280px;">
+          <label>Firebase Realtime Database URL</label>
+          <input id="fb-db-url" type="text" placeholder="https://your-project-default-rtdb.firebaseio.com" style="background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Source Sans 3',sans-serif;font-size:0.9rem;padding:10px 14px;width:100%;outline:none;">
+        </div>
+        <button class="btn btn-gold" onclick="connectFirebase()">Connect & Start Sync</button>
+      </div>
+    </div>
+
+    <!-- Firebase reconnect (shown when already connected) -->
+    <div class="admin-section" id="firebase-connected-panel" style="display:none;">
+      <h3>🔥 Firebase Database</h3>
+      <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+        <span id="fb-connected-url" style="font-family:'Oswald',sans-serif; font-size:0.85rem; color:var(--text-muted);"></span>
+        <span style="color:var(--green); font-family:'Oswald',sans-serif; font-size:0.85rem;">🟢 Connected for this session</span>
+        <button class="btn btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="disconnectFirebase()">Change DB</button>
+      </div>
+      <div id="fb-bake-instruction"></div>
+    </div>
+
+    <!-- AI Assistant Key -->
+    <div class="admin-section">
+      <h3>🤖 AI Chat Assistant</h3>
+      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px; line-height:1.7;">
+        Powers the 🏐 chat assistant visible to all visitors. The key is stored securely in Firebase and auto-loaded for all viewers.<br>
+        Get a free key at <strong style="color:var(--gold-dark);">console.anthropic.com</strong>
+      </p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+        <div class="form-group" style="flex:1; min-width:280px;">
+          <label>Anthropic API Key</label>
+          <input id="admin-anthropic-key" type="password" placeholder="sk-ant-…"
+            style="background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Source Sans 3',sans-serif;font-size:0.9rem;padding:10px 14px;width:100%;outline:none;">
+        </div>
+        <button class="btn btn-gold" onclick="saveAnthropicKey()">Save Key</button>
+        <button class="btn btn-outline" onclick="clearAnthropicKey()">Clear</button>
+      </div>
+      <div id="admin-ai-key-status" style="margin-top:10px; font-size:0.83rem;"></div>
     </div>
   </div>
 
@@ -2467,10 +2486,25 @@ let matchData = DEFAULT_MATCHES.map(m => ({...m, sets: m.sets ? m.sets.map(s=>({
 const FIREBASE_URL = 'https://dpsc2026-e59e9-default-rtdb.firebaseio.com';
 
 let pollingInterval = null;
+window._anthropicApiKey = null; // populated from Firebase on connect
+
+async function fetchAnthropicKey() {
+  const url = FIREBASE_URL || window._adminFirebaseUrl;
+  if (!url) return;
+  try {
+    const res = await fetch(`${url}/config/anthropicKey.json`);
+    if (!res.ok) return;
+    const val = await res.json();
+    if (val && typeof val === 'string') {
+      window._anthropicApiKey = val;
+    }
+  } catch(e) {}
+}
 
 function startPolling() {
   if (!FIREBASE_URL) return; // No URL baked in yet — silent no-op for viewers
   fetchScores();
+  fetchAnthropicKey();
   if (pollingInterval) clearInterval(pollingInterval);
   pollingInterval = setInterval(fetchScores, 5000);
 }
@@ -2563,6 +2597,7 @@ function connectFirebase() {
   // For this admin session: start polling with the entered URL manually
   window._adminFirebaseUrl = url;
   fetchScoresWithUrl(url);
+  fetchAnthropicKey();
   setInterval(() => fetchScoresWithUrl(url), 5000);
   showToast('Connected for this session ✓');
 }
@@ -3210,6 +3245,65 @@ function adminLogout() {
   showToast('Logged out');
 }
 
+async function saveAnthropicKey() {
+  const k = (document.getElementById('admin-anthropic-key').value || '').trim();
+  const status = document.getElementById('admin-ai-key-status');
+  if (!k) { status.innerHTML = '<span style="color:#e74c3c">Please enter a key.</span>'; return; }
+  const url = FIREBASE_URL || window._adminFirebaseUrl;
+  if (!url) {
+    status.innerHTML = '<span style="color:#e74c3c">⚠ Firebase is not connected. Connect Firebase first.</span>';
+    return;
+  }
+  status.innerHTML = '<span style="color:var(--text-muted)">Saving…</span>';
+  try {
+    const res = await fetch(`${url}/config/anthropicKey.json`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(k)
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    window._anthropicApiKey = k;
+    status.innerHTML = '<span style="color:var(--green)">✓ Key saved to Firebase. AI assistant is now active for all viewers.</span>';
+    showToast('AI assistant key saved to Firebase');
+  } catch(e) {
+    status.innerHTML = `<span style="color:#e74c3c">⚠ Failed to save: ${e.message}</span>`;
+  }
+}
+
+async function clearAnthropicKey() {
+  const url = FIREBASE_URL || window._adminFirebaseUrl;
+  const status = document.getElementById('admin-ai-key-status');
+  if (!url) {
+    status.innerHTML = '<span style="color:#e74c3c">⚠ Firebase is not connected.</span>';
+    return;
+  }
+  try {
+    await fetch(`${url}/config/anthropicKey.json`, { method: 'DELETE' });
+    window._anthropicApiKey = null;
+    document.getElementById('admin-anthropic-key').value = '';
+    status.innerHTML = '<span style="color:var(--text-muted)">Key removed from Firebase. AI assistant is now inactive.</span>';
+    showToast('AI assistant key cleared');
+  } catch(e) {
+    status.innerHTML = `<span style="color:#e74c3c">⚠ Failed to clear: ${e.message}</span>`;
+  }
+}
+
+function initAdminAiKey() {
+  const status = document.getElementById('admin-ai-key-status');
+  if (!status) return;
+  const url = FIREBASE_URL || window._adminFirebaseUrl;
+  if (!url) {
+    status.innerHTML = '<span style="color:var(--text-muted)">⚠ Connect Firebase first to manage the AI assistant key.</span>';
+    return;
+  }
+  if (window._anthropicApiKey) {
+    document.getElementById('admin-anthropic-key').value = window._anthropicApiKey;
+    status.innerHTML = '<span style="color:var(--green)">✓ Key loaded from Firebase — AI assistant is active.</span>';
+  } else {
+    status.innerHTML = '<span style="color:var(--text-muted)">No key set — AI assistant will prompt visitors to contact admin.</span>';
+  }
+}
+
 function updateAdminMatchSelect() {
   const round = document.getElementById('admin-round').value;
   const sel = document.getElementById('admin-match-select');
@@ -3438,6 +3532,7 @@ function showPage(page) {
       const url = FIREBASE_URL || window._adminFirebaseUrl;
       document.getElementById('fb-connected-url').textContent = url;
     }
+    initAdminAiKey();
   }
 }
 
@@ -3775,29 +3870,6 @@ renderHomePage();
   }
   .chat-hbtn:hover { color: #fff; background: rgba(255,255,255,0.12); }
 
-  /* Settings panel */
-  #chat-settings {
-    background: var(--bg-card); padding: 14px 16px;
-    border-bottom: 1px solid var(--border); display: none; flex-shrink: 0;
-  }
-  #chat-settings.open { display: block; }
-  #chat-settings label { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px; display: block; margin-bottom: 6px; font-family: 'Oswald', sans-serif; }
-  #chat-settings-note { font-size: 0.72rem; color: var(--text-muted); margin-top: 7px; line-height: 1.5; }
-  #chat-settings-note a { color: var(--gold-dark); }
-  #chat-key-row { display: flex; gap: 8px; }
-  #chat-api-key {
-    flex: 1; border: 1.5px solid var(--border); border-radius: 8px;
-    padding: 7px 10px; font-size: 0.82rem; font-family: 'Source Sans 3', sans-serif;
-    outline: none; background: var(--bg); color: var(--text);
-  }
-  #chat-api-key:focus { border-color: var(--gold); }
-  #chat-key-save {
-    background: var(--gold); border: none; border-radius: 8px;
-    padding: 7px 13px; cursor: pointer; font-size: 0.82rem;
-    color: var(--navy); font-weight: 700; transition: background 0.15s;
-  }
-  #chat-key-save:hover { background: var(--gold-light); }
-  #chat-key-status { font-size: 0.72rem; margin-top: 5px; }
 
   #chat-messages {
     flex: 1; overflow-y: auto; padding: 14px;
@@ -3864,8 +3936,8 @@ renderHomePage();
   #chat-send:disabled { opacity: 0.45; cursor: not-allowed; }
 
   @media (max-width: 420px) {
-    #chat-panel { width: calc(100vw - 16px); right: 8px; border-radius: 14px; }
-    #chat-fab   { bottom: 16px; right: 14px; }
+    #chat-fab   { bottom: 80px; right: 14px; }
+    #chat-panel { width: calc(100vw - 16px); right: 8px; bottom: 150px; border-radius: 14px; }
   }
 </style>
 
@@ -3882,22 +3954,8 @@ renderHomePage();
       <div id="chat-header-sub">Powered by Claude · Ask anything</div>
     </div>
     <div id="chat-header-actions">
-      <button class="chat-hbtn" id="chat-settings-btn" title="API Key Settings">⚙️</button>
       <button class="chat-hbtn" id="chat-clear-btn" title="Clear chat">🗑</button>
       <button class="chat-hbtn" id="chat-close">✕</button>
-    </div>
-  </div>
-
-  <div id="chat-settings">
-    <label>ANTHROPIC API KEY</label>
-    <div id="chat-key-row">
-      <input id="chat-api-key" type="password" placeholder="sk-ant-…" autocomplete="off">
-      <button id="chat-key-save">Save</button>
-    </div>
-    <div id="chat-key-status"></div>
-    <div id="chat-settings-note">
-      Your key is stored locally in your browser only and never sent anywhere except directly to Anthropic.<br>
-      Get a key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>
     </div>
   </div>
 
@@ -4066,9 +4124,9 @@ If a question is outside the tournament scope, politely say you can only help wi
   let conversationHistory = [];
 
   async function callLLM(userMessage, onChunk, onDone, onError) {
-    const apiKey = localStorage.getItem('dpsc_anthropic_key');
+    const apiKey = window._anthropicApiKey;
     if (!apiKey) {
-      onError('No API key set. Click ⚙️ to add your Anthropic API key.');
+      onError('AI assistant not configured. Ask the admin to set the API key via the Admin panel.');
       return;
     }
 
@@ -4147,22 +4205,10 @@ If a question is outside the tournament scope, politely say you can only help wi
   const input    = document.getElementById('chat-input');
   const sendBtn  = document.getElementById('chat-send');
   const closeBtn = document.getElementById('chat-close');
-  const settingsBtn  = document.getElementById('chat-settings-btn');
-  const settingsPane = document.getElementById('chat-settings');
   const clearBtn = document.getElementById('chat-clear-btn');
-  const apiKeyIn = document.getElementById('chat-api-key');
-  const keySave  = document.getElementById('chat-key-save');
-  const keyStatus = document.getElementById('chat-key-status');
 
   let opened = false;
   let busy   = false;
-
-  // Pre-fill saved key
-  const savedKey = localStorage.getItem('dpsc_anthropic_key');
-  if (savedKey) {
-    apiKeyIn.value = savedKey;
-    keyStatus.innerHTML = '<span style="color:var(--green)">✓ Key saved</span>';
-  }
 
   function addMsg(html, who) {
     const div = document.createElement('div');
@@ -4210,22 +4256,6 @@ If a question is outside the tournament scope, politely say you can only help wi
     );
   }
 
-  // Settings toggle
-  settingsBtn.addEventListener('click', () => {
-    settingsPane.classList.toggle('open');
-  });
-
-  keySave.addEventListener('click', () => {
-    const k = apiKeyIn.value.trim();
-    if (!k) {
-      keyStatus.innerHTML = '<span style="color:#ffaaaa">Please enter a key.</span>';
-      return;
-    }
-    localStorage.setItem('dpsc_anthropic_key', k);
-    keyStatus.innerHTML = '<span style="color:var(--green)">✓ Key saved!</span>';
-    setTimeout(() => settingsPane.classList.remove('open'), 1200);
-  });
-
   // Clear chat
   clearBtn.addEventListener('click', () => {
     msgs.innerHTML = '';
@@ -4242,14 +4272,10 @@ If a question is outside the tournament scope, politely say you can only help wi
     panel.classList.toggle('open');
     if (panel.classList.contains('open')) {
       if (msgs.children.length === 0) {
-        const hasKey = !!localStorage.getItem('dpsc_anthropic_key');
         addMsg(
-          hasKey
-            ? "👋 Hi! I'm the <b>DPSC AI Assistant</b>, powered by Claude.<br>Ask me anything — rules, standings, players, scores, qualifying, or anything else about the tournament!"
-            : "👋 Hi! I'm the <b>DPSC AI Assistant</b>.<br><br>To get started, click <b>⚙️</b> above and paste your <b>Anthropic API key</b>.<br>Then ask me anything about the tournament!",
+          "👋 Hi! I'm the <b>DPSC AI Assistant</b>, powered by Claude.<br>Ask me anything — rules, standings, players, scores, qualifying, or anything else about the tournament!",
           'bot'
         );
-        if (!hasKey) settingsPane.classList.add('open');
       }
       input.focus();
     }
@@ -4257,7 +4283,6 @@ If a question is outside the tournament scope, politely say you can only help wi
 
   closeBtn.addEventListener('click', () => {
     panel.classList.remove('open');
-    settingsPane.classList.remove('open');
   });
 
   sendBtn.addEventListener('click', handleSend);
@@ -4270,14 +4295,11 @@ If a question is outside the tournament scope, politely say you can only help wi
         opened = true;
         badge.style.display = 'none';
         if (msgs.children.length === 0) {
-          const hasKey = !!localStorage.getItem('dpsc_anthropic_key');
           addMsg(
-            hasKey
-              ? "👋 Hi! I'm the <b>DPSC AI Assistant</b>, powered by Claude.<br>Ask me anything about the tournament!"
-              : "👋 Hi! I'm the <b>DPSC AI Assistant</b>.<br><br>Click <b>⚙️</b> above and add your <b>Anthropic API key</b> to get started!",
+            "👋 Hi! I'm the <b>DPSC AI Assistant</b>, powered by Claude.<br>Ask me anything about the tournament!",
             'bot'
           );
-          if (!hasKey) settingsPane.classList.add('open');
+          // settings panel already visible by default when no key
         }
       }
       input.value = chip.textContent;
