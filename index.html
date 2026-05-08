@@ -1760,9 +1760,20 @@
     /* Admin forms */
     .form-grid { grid-template-columns: 1fr; gap: 12px; }
     .score-entry-row { grid-template-columns: 1fr 30px 1fr; gap: 8px; }
+    .score-entry-row > * { min-width: 0; }
     .score-input-big { font-size: 1.6rem; padding: 10px 8px; }
-    .set-row { grid-template-columns: 60px 1fr 20px 1fr; gap: 8px; }
-    .set-score-input { font-size: 1.2rem; padding: 7px 8px; }
+    /* Set-row: move label to its own row so both inputs get equal 1fr */
+    .set-row {
+      grid-template-columns: 1fr 24px 1fr;
+      grid-template-rows: auto auto;
+      row-gap: 4px;
+    }
+    .set-row .set-label {
+      grid-column: 1 / -1;
+      grid-row: 1;
+    }
+    .set-row > div { grid-row: 2; min-width: 0; }
+    .set-score-input { font-size: 1.2rem; padding: 7px 8px; width: 100%; }
 
     /* Modal bottom sheet */
     .modal-overlay { padding: 0; align-items: flex-end; background: rgba(26,46,74,0.5); }
