@@ -3805,8 +3805,11 @@ renderHomePage();
     }
   }
 
+  const DISPLAY_START = 4;   // 4 AM
+  const DISPLAY_END   = 14;  // up to and including 2 PM
+
   function renderWeather(el, h){
-    const hours = h.time.map(function(t, i){
+    const allHours = h.time.map(function(t, i){
       return {
         time: t,
         hour: new Date(t).getHours(),
@@ -3817,6 +3820,9 @@ renderHomePage();
         wind: Math.round(h.wind_speed_10m[i] || 0)
       };
     });
+
+    // Only display 4 AM – 2 PM
+    const hours = allHours.filter(function(x){ return x.hour >= DISPLAY_START && x.hour <= DISPLAY_END; });
 
     const temps = hours.map(x => x.temp);
     const minTemp = Math.min.apply(null, temps);
@@ -3854,7 +3860,7 @@ renderHomePage();
       + '</div>'
       + '<div class="weather-hourly">' + hoursHTML + '</div>'
       + '<div class="weather-footer">'
-      +   'Play window (7–11 AM) highlighted in gold · Forecast from '
+      +   'Showing 4 AM – 2 PM · Play window (7 AM–12 PM) highlighted · Forecast from '
       +   '<a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>'
       +   ' · updates on page reload'
       + '</div>';
