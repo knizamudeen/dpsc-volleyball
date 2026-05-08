@@ -2409,63 +2409,84 @@
       </div>
     </div>
 
-    <!-- Firebase Setup -->
-    <div class="admin-section" id="firebase-setup">
-      <h3>🔥 Connect Firebase (Required for Live Sync)</h3>
-      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px; line-height:1.7;">
-        Scores need a free Firebase database to sync to all viewers in real-time.<br>
-        <strong style="color:var(--text);">One-time setup takes ~3 minutes:</strong>
-      </p>
-      <ol style="color:var(--text); font-size:0.85rem; line-height:2; padding-left:20px; margin-bottom:20px;">
-        <li>Go to <strong style="color:var(--gold-dark);">console.firebase.google.com</strong> → Sign in with Google</li>
-        <li>Click <strong style="color:var(--text);">"Add project"</strong> → Name it <code style="background:var(--border);padding:1px 6px;border-radius:3px;color:var(--navy);">dpsc2026</code> → Continue (disable Analytics) → Create</li>
-        <li>In left sidebar click <strong style="color:var(--text);">"Realtime Database"</strong> → "Create database"</li>
-        <li>Choose any location → Select <strong style="color:var(--text);">"Start in test mode"</strong> → Enable</li>
-        <li>Copy the URL shown (looks like <code style="background:var(--border);padding:1px 6px;border-radius:3px;color:var(--navy);">https://dpsc2026-xxxxx-default-rtdb.firebaseio.com</code>)</li>
-        <li>Paste it below and click Connect</li>
-      </ol>
-      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
-        <div class="form-group" style="flex:1; min-width:280px;">
-          <label>Firebase Realtime Database URL</label>
-          <input id="fb-db-url" type="text" placeholder="https://your-project-default-rtdb.firebaseio.com" style="background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Source Sans 3',sans-serif;font-size:0.9rem;padding:10px 14px;width:100%;outline:none;">
-        </div>
-        <button class="btn btn-gold" onclick="connectFirebase()">Connect & Start Sync</button>
-      </div>
-    </div>
-
-    <!-- Firebase reconnect (shown when already connected) -->
-    <div class="admin-section" id="firebase-connected-panel" style="display:none;">
-      <h3>🔥 Firebase Database</h3>
-      <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
-        <span id="fb-connected-url" style="font-family:'Oswald',sans-serif; font-size:0.85rem; color:var(--text-muted);"></span>
-        <span style="color:var(--green); font-family:'Oswald',sans-serif; font-size:0.85rem;">🟢 Connected for this session</span>
-        <button class="btn btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="disconnectFirebase()">Change DB</button>
-      </div>
-      <div id="fb-bake-instruction"></div>
-    </div>
-
-    <!-- AI Assistant Key -->
-    <div class="admin-section">
-      <h3>🤖 AI Chat Assistant</h3>
-      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px; line-height:1.7;">
-        Powers the 🏐 chat assistant visible to all visitors. The key is stored securely in Firebase and auto-loaded for all viewers.<br>
-        Get a free key at <strong style="color:var(--gold-dark);">console.anthropic.com</strong>
-      </p>
-      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
-        <div class="form-group" style="flex:1; min-width:280px;">
-          <label>Anthropic API Key</label>
-          <input id="admin-anthropic-key" type="password" placeholder="sk-ant-…"
-            style="background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Source Sans 3',sans-serif;font-size:0.9rem;padding:10px 14px;width:100%;outline:none;">
-        </div>
-        <button class="btn btn-gold" onclick="saveAnthropicKey()">Save Key</button>
-        <button class="btn btn-outline" onclick="clearAnthropicKey()">Clear</button>
-      </div>
-      <div id="admin-ai-key-status" style="margin-top:10px; font-size:0.83rem;"></div>
-    </div>
   </div>
 
   <div class="bottom-nav-spacer"></div>
 </main>
+
+<!-- ═══════════════════════════════════════════
+     CONTROL CENTER — accessible only via /#ctrlctr
+     Hidden from all navigation menus
+     ═══════════════════════════════════════════ -->
+<div id="page-ctrlctr" class="page" style="max-width:860px;margin:0 auto;padding:24px 16px;">
+
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:18px;border-bottom:2px solid var(--border);">
+    <div style="font-size:2.2rem;line-height:1;">⚙️</div>
+    <div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:2px;color:var(--navy);line-height:1;">Control Center</div>
+      <div style="font-size:0.78rem;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px;">System Configuration · Restricted Access</div>
+    </div>
+  </div>
+
+  <!-- Firebase Setup -->
+  <div class="admin-section" id="firebase-setup">
+    <h3>🔥 Connect Firebase (Required for Live Sync)</h3>
+    <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px; line-height:1.7;">
+      Scores need a free Firebase database to sync to all viewers in real-time.<br>
+      <strong style="color:var(--text);">One-time setup takes ~3 minutes:</strong>
+    </p>
+    <ol style="color:var(--text); font-size:0.85rem; line-height:2; padding-left:20px; margin-bottom:20px;">
+      <li>Go to <strong style="color:var(--gold-dark);">console.firebase.google.com</strong> → Sign in with Google</li>
+      <li>Click <strong style="color:var(--text);">"Add project"</strong> → Name it <code style="background:var(--border);padding:1px 6px;border-radius:3px;color:var(--navy);">dpsc2026</code> → Continue (disable Analytics) → Create</li>
+      <li>In left sidebar click <strong style="color:var(--text);">"Realtime Database"</strong> → "Create database"</li>
+      <li>Choose any location → Select <strong style="color:var(--text);">"Start in test mode"</strong> → Enable</li>
+      <li>Copy the URL shown (looks like <code style="background:var(--border);padding:1px 6px;border-radius:3px;color:var(--navy);">https://dpsc2026-xxxxx-default-rtdb.firebaseio.com</code>)</li>
+      <li>Paste it below and click Connect</li>
+    </ol>
+    <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+      <div class="form-group" style="flex:1; min-width:280px;">
+        <label>Firebase Realtime Database URL</label>
+        <input id="fb-db-url" type="text" placeholder="https://your-project-default-rtdb.firebaseio.com" style="background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Source Sans 3',sans-serif;font-size:0.9rem;padding:10px 14px;width:100%;outline:none;">
+      </div>
+      <button class="btn btn-gold" onclick="connectFirebase()">Connect & Start Sync</button>
+    </div>
+  </div>
+
+  <!-- Firebase reconnect (shown when already connected) -->
+  <div class="admin-section" id="firebase-connected-panel" style="display:none;">
+    <h3>🔥 Firebase Database</h3>
+    <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+      <span id="fb-connected-url" style="font-family:'Oswald',sans-serif; font-size:0.85rem; color:var(--text-muted);"></span>
+      <span style="color:var(--green); font-family:'Oswald',sans-serif; font-size:0.85rem;">🟢 Connected for this session</span>
+      <button class="btn btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="disconnectFirebase()">Change DB</button>
+    </div>
+    <div id="fb-bake-instruction"></div>
+  </div>
+
+  <!-- AI Assistant Key -->
+  <div class="admin-section">
+    <h3>🤖 AI Chat Assistant</h3>
+    <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px; line-height:1.7;">
+      Powers the 🏐 chat assistant visible to all visitors. The key is stored securely in Firebase and auto-loaded for all viewers.<br>
+      Get a free key at <strong style="color:var(--gold-dark);">console.anthropic.com</strong>
+    </p>
+    <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+      <div class="form-group" style="flex:1; min-width:280px;">
+        <label>Anthropic API Key</label>
+        <input id="admin-anthropic-key" type="password" placeholder="sk-ant-…"
+          style="background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Source Sans 3',sans-serif;font-size:0.9rem;padding:10px 14px;width:100%;outline:none;">
+      </div>
+      <button class="btn btn-gold" onclick="saveAnthropicKey()">Save Key</button>
+      <button class="btn btn-outline" onclick="clearAnthropicKey()">Clear</button>
+    </div>
+    <div id="admin-ai-key-status" style="margin-top:10px; font-size:0.83rem;"></div>
+  </div>
+
+  <div style="margin-top:32px;padding-top:16px;border-top:1px solid var(--border);font-size:0.75rem;color:var(--text-muted);text-align:center;letter-spacing:1px;">
+    DPSC 2026 · Control Center · <a href="/" onclick="showPage('home');return false;" style="color:var(--text-muted);">← Back to site</a>
+  </div>
+  <div class="bottom-nav-spacer"></div>
+</div>
 
 <!-- CHAMPION OVERLAY -->
 <div id="champion-overlay">
@@ -3278,6 +3299,12 @@ function checkAdminAccess() {
     document.getElementById('desktop-admin-btn').style.display = '';
     document.getElementById('bnav-admin').style.display = '';
   }
+  if (window.location.hash === '#ctrlctr') {
+    // Show control center — hidden from all nav menus, URL-only access
+    showPage('ctrlctr');
+    // Clear the hash so it's not bookmarkable / shareable by accident
+    history.replaceState(null, '', window.location.pathname);
+  }
 }
 
 // Check on load and on hash change
@@ -3604,12 +3631,13 @@ function showPage(page) {
   if (page === 'admin') {
     updateAdminMatchSelect();
     renderAdminMatchesTable();
+  }
+  if (page === 'ctrlctr') {
     const connected = !!(FIREBASE_URL || window._adminFirebaseUrl);
     document.getElementById('firebase-setup').style.display = connected ? 'none' : 'block';
     document.getElementById('firebase-connected-panel').style.display = connected ? 'block' : 'none';
     if (connected) {
-      const url = FIREBASE_URL || window._adminFirebaseUrl;
-      document.getElementById('fb-connected-url').textContent = url;
+      document.getElementById('fb-connected-url').textContent = FIREBASE_URL || window._adminFirebaseUrl;
     }
     initAdminAiKey();
   }
