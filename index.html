@@ -2250,41 +2250,6 @@
       <button class="btn btn-outline" onclick="adminLogout()">Logout</button>
     </div>
 
-    <!-- Firebase Setup -->
-    <div class="admin-section" id="firebase-setup">
-      <h3>🔥 Step 1: Connect Firebase (Required for Live Sync)</h3>
-      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px; line-height:1.7;">
-        Scores need a free Firebase database to sync to all viewers in real-time.<br>
-        <strong style="color:var(--text);">One-time setup takes ~3 minutes:</strong>
-      </p>
-      <ol style="color:var(--text); font-size:0.85rem; line-height:2; padding-left:20px; margin-bottom:20px;">
-        <li>Go to <strong style="color:var(--gold-dark);">console.firebase.google.com</strong> → Sign in with Google</li>
-        <li>Click <strong style="color:var(--text);">"Add project"</strong> → Name it <code style="background:var(--border);padding:1px 6px;border-radius:3px;color:var(--navy);">dpsc2026</code> → Continue (disable Analytics) → Create</li>
-        <li>In left sidebar click <strong style="color:var(--text);">"Realtime Database"</strong> → "Create database"</li>
-        <li>Choose any location → Select <strong style="color:var(--text);">"Start in test mode"</strong> → Enable</li>
-        <li>Copy the URL shown (looks like <code style="background:var(--border);padding:1px 6px;border-radius:3px;color:var(--navy);">https://dpsc2026-xxxxx-default-rtdb.firebaseio.com</code>)</li>
-        <li>Paste it below and click Connect</li>
-      </ol>
-      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
-        <div class="form-group" style="flex:1; min-width:280px;">
-          <label>Firebase Realtime Database URL</label>
-          <input id="fb-db-url" type="text" placeholder="https://your-project-default-rtdb.firebaseio.com" style="background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Source Sans 3',sans-serif;font-size:0.9rem;padding:10px 14px;width:100%;outline:none;">
-        </div>
-        <button class="btn btn-gold" onclick="connectFirebase()">Connect & Start Sync</button>
-      </div>
-    </div>
-
-    <!-- Firebase reconnect (shown when already connected) -->
-    <div class="admin-section" id="firebase-connected-panel" style="display:none;">
-      <h3>🔥 Firebase Database</h3>
-      <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
-        <span id="fb-connected-url" style="font-family:'Oswald',sans-serif; font-size:0.85rem; color:var(--text-muted);"></span>
-        <span style="color:var(--green); font-family:'Oswald',sans-serif; font-size:0.85rem;">🟢 Connected for this session</span>
-        <button class="btn btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="disconnectFirebase()">Change DB</button>
-      </div>
-      <div id="fb-bake-instruction"></div>
-    </div>
-
     <!-- Enter Match Score -->
     <div class="admin-section">
       <h3>Enter / Update Match Score</h3>
@@ -2366,6 +2331,60 @@
         </table>
       </div>
     </div>
+
+    <!-- Firebase Setup -->
+    <div class="admin-section" id="firebase-setup">
+      <h3>🔥 Connect Firebase (Required for Live Sync)</h3>
+      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px; line-height:1.7;">
+        Scores need a free Firebase database to sync to all viewers in real-time.<br>
+        <strong style="color:var(--text);">One-time setup takes ~3 minutes:</strong>
+      </p>
+      <ol style="color:var(--text); font-size:0.85rem; line-height:2; padding-left:20px; margin-bottom:20px;">
+        <li>Go to <strong style="color:var(--gold-dark);">console.firebase.google.com</strong> → Sign in with Google</li>
+        <li>Click <strong style="color:var(--text);">"Add project"</strong> → Name it <code style="background:var(--border);padding:1px 6px;border-radius:3px;color:var(--navy);">dpsc2026</code> → Continue (disable Analytics) → Create</li>
+        <li>In left sidebar click <strong style="color:var(--text);">"Realtime Database"</strong> → "Create database"</li>
+        <li>Choose any location → Select <strong style="color:var(--text);">"Start in test mode"</strong> → Enable</li>
+        <li>Copy the URL shown (looks like <code style="background:var(--border);padding:1px 6px;border-radius:3px;color:var(--navy);">https://dpsc2026-xxxxx-default-rtdb.firebaseio.com</code>)</li>
+        <li>Paste it below and click Connect</li>
+      </ol>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+        <div class="form-group" style="flex:1; min-width:280px;">
+          <label>Firebase Realtime Database URL</label>
+          <input id="fb-db-url" type="text" placeholder="https://your-project-default-rtdb.firebaseio.com" style="background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Source Sans 3',sans-serif;font-size:0.9rem;padding:10px 14px;width:100%;outline:none;">
+        </div>
+        <button class="btn btn-gold" onclick="connectFirebase()">Connect & Start Sync</button>
+      </div>
+    </div>
+
+    <!-- Firebase reconnect (shown when already connected) -->
+    <div class="admin-section" id="firebase-connected-panel" style="display:none;">
+      <h3>🔥 Firebase Database</h3>
+      <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+        <span id="fb-connected-url" style="font-family:'Oswald',sans-serif; font-size:0.85rem; color:var(--text-muted);"></span>
+        <span style="color:var(--green); font-family:'Oswald',sans-serif; font-size:0.85rem;">🟢 Connected for this session</span>
+        <button class="btn btn-outline" style="padding:6px 14px; font-size:0.75rem;" onclick="disconnectFirebase()">Change DB</button>
+      </div>
+      <div id="fb-bake-instruction"></div>
+    </div>
+
+    <!-- AI Assistant Key -->
+    <div class="admin-section">
+      <h3>🤖 AI Chat Assistant</h3>
+      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px; line-height:1.7;">
+        Powers the 🏐 chat assistant visible to all visitors. The key is stored securely in Firebase and auto-loaded for all viewers.<br>
+        Get a free key at <strong style="color:var(--gold-dark);">console.anthropic.com</strong>
+      </p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+        <div class="form-group" style="flex:1; min-width:280px;">
+          <label>Anthropic API Key</label>
+          <input id="admin-anthropic-key" type="password" placeholder="sk-ant-…"
+            style="background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Source Sans 3',sans-serif;font-size:0.9rem;padding:10px 14px;width:100%;outline:none;">
+        </div>
+        <button class="btn btn-gold" onclick="saveAnthropicKey()">Save Key</button>
+        <button class="btn btn-outline" onclick="clearAnthropicKey()">Clear</button>
+      </div>
+      <div id="admin-ai-key-status" style="margin-top:10px; font-size:0.83rem;"></div>
+    </div>
   </div>
 
   <div class="bottom-nav-spacer"></div>
@@ -2419,7 +2438,7 @@ const TEAMS = [
   { id: 'tk', name: 'Thudikkum Karangal', short: 'TK', colorClass: 'tk', members: ['Salim (Captain)','Abdul Aleem','Ali','Meeran','Mohd Abdullah','Mohsin','Nivas'] },
   { id: 'bi', name: 'Billa', short: 'BI', colorClass: 'bi', members: ['Madhani (Captain)','Ansari','Ayub','Moosa','Noufal','Sulthan','Yaser'] },
   { id: 'kz', name: 'Kazugu', short: 'KZ', colorClass: 'kz', members: ['Suja (Captain)','Faridh','MMK','Nizam','Nizam MS','Shahjahan','Younus'] },
-  { id: 'mk', name: 'Murattu Kaalai', short: 'MK', colorClass: 'mk', members: ['Baks (Captain)','Abdul Hameed','Haleel','Jamer','Jilani','Kabir','Musthafa'] },
+  { id: 'mk', name: 'Murattu Kaalai', short: 'MK', colorClass: 'mk', members: ['Baks (Captain)','Abdul Hameed','Haleel','Jamer','Sabir','Kabir','Rafeeq Ahmed'] },
 ];
 
 const FINAL_SET_TARGETS = [18, 18, 21];
@@ -2467,10 +2486,25 @@ let matchData = DEFAULT_MATCHES.map(m => ({...m, sets: m.sets ? m.sets.map(s=>({
 const FIREBASE_URL = 'https://dpsc2026-e59e9-default-rtdb.firebaseio.com';
 
 let pollingInterval = null;
+window._anthropicApiKey = null; // populated from Firebase on connect
+
+async function fetchAnthropicKey() {
+  const url = FIREBASE_URL || window._adminFirebaseUrl;
+  if (!url) return;
+  try {
+    const res = await fetch(`${url}/config/anthropicKey.json`);
+    if (!res.ok) return;
+    const val = await res.json();
+    if (val && typeof val === 'string') {
+      window._anthropicApiKey = val;
+    }
+  } catch(e) {}
+}
 
 function startPolling() {
   if (!FIREBASE_URL) return; // No URL baked in yet — silent no-op for viewers
   fetchScores();
+  fetchAnthropicKey();
   if (pollingInterval) clearInterval(pollingInterval);
   pollingInterval = setInterval(fetchScores, 5000);
 }
@@ -2563,6 +2597,7 @@ function connectFirebase() {
   // For this admin session: start polling with the entered URL manually
   window._adminFirebaseUrl = url;
   fetchScoresWithUrl(url);
+  fetchAnthropicKey();
   setInterval(() => fetchScoresWithUrl(url), 5000);
   showToast('Connected for this session ✓');
 }
@@ -3210,6 +3245,65 @@ function adminLogout() {
   showToast('Logged out');
 }
 
+async function saveAnthropicKey() {
+  const k = (document.getElementById('admin-anthropic-key').value || '').trim();
+  const status = document.getElementById('admin-ai-key-status');
+  if (!k) { status.innerHTML = '<span style="color:#e74c3c">Please enter a key.</span>'; return; }
+  const url = FIREBASE_URL || window._adminFirebaseUrl;
+  if (!url) {
+    status.innerHTML = '<span style="color:#e74c3c">⚠ Firebase is not connected. Connect Firebase first.</span>';
+    return;
+  }
+  status.innerHTML = '<span style="color:var(--text-muted)">Saving…</span>';
+  try {
+    const res = await fetch(`${url}/config/anthropicKey.json`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(k)
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    window._anthropicApiKey = k;
+    status.innerHTML = '<span style="color:var(--green)">✓ Key saved to Firebase. AI assistant is now active for all viewers.</span>';
+    showToast('AI assistant key saved to Firebase');
+  } catch(e) {
+    status.innerHTML = `<span style="color:#e74c3c">⚠ Failed to save: ${e.message}</span>`;
+  }
+}
+
+async function clearAnthropicKey() {
+  const url = FIREBASE_URL || window._adminFirebaseUrl;
+  const status = document.getElementById('admin-ai-key-status');
+  if (!url) {
+    status.innerHTML = '<span style="color:#e74c3c">⚠ Firebase is not connected.</span>';
+    return;
+  }
+  try {
+    await fetch(`${url}/config/anthropicKey.json`, { method: 'DELETE' });
+    window._anthropicApiKey = null;
+    document.getElementById('admin-anthropic-key').value = '';
+    status.innerHTML = '<span style="color:var(--text-muted)">Key removed from Firebase. AI assistant is now inactive.</span>';
+    showToast('AI assistant key cleared');
+  } catch(e) {
+    status.innerHTML = `<span style="color:#e74c3c">⚠ Failed to clear: ${e.message}</span>`;
+  }
+}
+
+function initAdminAiKey() {
+  const status = document.getElementById('admin-ai-key-status');
+  if (!status) return;
+  const url = FIREBASE_URL || window._adminFirebaseUrl;
+  if (!url) {
+    status.innerHTML = '<span style="color:var(--text-muted)">⚠ Connect Firebase first to manage the AI assistant key.</span>';
+    return;
+  }
+  if (window._anthropicApiKey) {
+    document.getElementById('admin-anthropic-key').value = window._anthropicApiKey;
+    status.innerHTML = '<span style="color:var(--green)">✓ Key loaded from Firebase — AI assistant is active.</span>';
+  } else {
+    status.innerHTML = '<span style="color:var(--text-muted)">No key set — AI assistant will prompt visitors to contact admin.</span>';
+  }
+}
+
 function updateAdminMatchSelect() {
   const round = document.getElementById('admin-round').value;
   const sel = document.getElementById('admin-match-select');
@@ -3438,6 +3532,7 @@ function showPage(page) {
       const url = FIREBASE_URL || window._adminFirebaseUrl;
       document.getElementById('fb-connected-url').textContent = url;
     }
+    initAdminAiKey();
   }
 }
 
@@ -3725,57 +3820,33 @@ renderHomePage();
 })();
 </script>
 
-<!-- ===== ANALYTICS CHATBOT ===== -->
+<!-- ===== ANALYTICS CHATBOT (LLM-powered) ===== -->
 <style>
   #chat-fab {
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    width: 58px;
-    height: 58px;
-    border-radius: 50%;
-    background: var(--gold);
-    color: var(--navy);
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.26);
-    z-index: 9999;
-    transition: transform 0.2s, background 0.2s;
+    position: fixed; bottom: 28px; right: 28px;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: var(--gold); color: var(--navy); border: none;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.26);
+    z-index: 9999; transition: transform 0.2s, background 0.2s;
   }
   #chat-fab:hover { background: var(--gold-light); transform: scale(1.08); }
   #chat-fab-badge {
-    position: absolute;
-    top: -3px; right: -3px;
-    background: var(--red);
-    color: #fff;
-    border-radius: 50%;
-    width: 18px; height: 18px;
-    font-size: 0.65rem;
-    font-weight: 700;
+    position: absolute; top: -3px; right: -3px;
+    background: var(--red); color: #fff; border-radius: 50%;
+    width: 18px; height: 18px; font-size: 0.65rem; font-weight: 700;
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Oswald', sans-serif;
-    border: 2px solid var(--bg);
+    font-family: 'Oswald', sans-serif; border: 2px solid var(--bg);
   }
 
   #chat-panel {
-    position: fixed;
-    bottom: 98px;
-    right: 28px;
-    width: 360px;
-    max-height: 560px;
-    background: var(--bg-card);
-    border-radius: 18px;
+    position: fixed; bottom: 98px; right: 28px;
+    width: 370px; max-height: 580px;
+    background: var(--bg-card); border-radius: 18px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    display: none;
-    flex-direction: column;
-    z-index: 9998;
-    border: 1.5px solid var(--border);
-    overflow: hidden;
-    animation: chatSlideIn 0.22s ease;
+    display: none; flex-direction: column;
+    z-index: 9998; border: 1.5px solid var(--border);
+    overflow: hidden; animation: chatSlideIn 0.22s ease;
   }
   @keyframes chatSlideIn {
     from { opacity:0; transform: translateY(16px) scale(0.97); }
@@ -3784,136 +3855,92 @@ renderHomePage();
   #chat-panel.open { display: flex; }
 
   #chat-header {
-    background: var(--navy);
-    color: #fff;
-    padding: 13px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: 'Oswald', sans-serif;
-    font-size: 0.95rem;
-    letter-spacing: 1px;
-    flex-shrink: 0;
+    background: var(--navy); color: #fff;
+    padding: 12px 16px; display: flex; align-items: center;
+    gap: 10px; font-family: 'Oswald', sans-serif;
+    font-size: 0.95rem; letter-spacing: 1px; flex-shrink: 0;
   }
-  #chat-header-icon { font-size: 1.25rem; }
   #chat-header-title { flex: 1; line-height: 1.2; }
-  #chat-header-sub { font-size: 0.68rem; opacity: 0.6; letter-spacing: 0.5px; font-family: 'Source Sans 3', sans-serif; font-weight: 400; }
-  #chat-close {
-    background: none; border: none;
-    color: rgba(255,255,255,0.55);
-    font-size: 1.1rem; cursor: pointer; line-height: 1; padding: 2px 4px;
-    border-radius: 4px; transition: color 0.15s, background 0.15s;
+  #chat-header-sub { font-size: 0.67rem; opacity: 0.6; letter-spacing: 0.4px; font-family: 'Source Sans 3', sans-serif; font-weight: 400; }
+  #chat-header-actions { display: flex; gap: 6px; }
+  .chat-hbtn {
+    background: none; border: none; color: rgba(255,255,255,0.55);
+    font-size: 1rem; cursor: pointer; padding: 3px 6px; border-radius: 5px;
+    transition: color 0.15s, background 0.15s;
   }
-  #chat-close:hover { color: #fff; background: rgba(255,255,255,0.1); }
+  .chat-hbtn:hover { color: #fff; background: rgba(255,255,255,0.12); }
+
 
   #chat-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background: var(--bg);
-    scroll-behavior: smooth;
+    flex: 1; overflow-y: auto; padding: 14px;
+    display: flex; flex-direction: column; gap: 10px;
+    background: var(--bg); scroll-behavior: smooth;
   }
-
   .chat-msg {
-    max-width: 90%;
-    padding: 10px 14px;
-    border-radius: 14px;
-    font-size: 0.875rem;
-    line-height: 1.55;
-    word-break: break-word;
+    max-width: 92%; padding: 10px 14px; border-radius: 14px;
+    font-size: 0.875rem; line-height: 1.6; word-break: break-word;
   }
   .chat-msg.bot {
-    background: var(--navy);
-    color: #fff;
-    align-self: flex-start;
-    border-bottom-left-radius: 4px;
+    background: var(--navy); color: #fff;
+    align-self: flex-start; border-bottom-left-radius: 4px;
   }
   .chat-msg.user {
-    background: var(--gold);
-    color: var(--navy);
-    align-self: flex-end;
-    border-bottom-right-radius: 4px;
-    font-weight: 600;
+    background: var(--gold); color: var(--navy);
+    align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 600;
   }
+  .chat-msg.error { background: #4a1a1a; color: #ffaaaa; }
+  .chat-msg b { color: var(--gold-light); }
   .chat-msg table { border-collapse: collapse; font-size: 0.79rem; margin-top: 7px; width: 100%; }
-  .chat-msg th { background: rgba(255,255,255,0.13); padding: 4px 7px; text-align: left; font-weight: 600; }
+  .chat-msg th { background: rgba(255,255,255,0.13); padding: 4px 7px; text-align: left; }
   .chat-msg td { padding: 4px 7px; border-top: 1px solid rgba(255,255,255,0.09); }
-  .chat-msg .gold  { color: var(--gold-light); font-weight: 700; }
-  .chat-msg .dim   { opacity: 0.6; font-size: 0.77rem; }
-  .chat-msg .tag   { display:inline-block; background:rgba(255,255,255,0.12); border-radius:4px; padding:1px 6px; font-size:0.75rem; margin:1px 2px; }
-  .chat-msg hr     { border:none; border-top:1px solid rgba(255,255,255,0.12); margin:8px 0; }
-  .chat-typing { display:flex; gap:4px; align-items:center; padding:10px 14px; }
-  .chat-typing span { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.5); animation:typingDot 1.2s infinite; }
-  .chat-typing span:nth-child(2) { animation-delay:0.2s; }
-  .chat-typing span:nth-child(3) { animation-delay:0.4s; }
+  .chat-msg hr { border: none; border-top: 1px solid rgba(255,255,255,0.12); margin: 8px 0; }
+  .chat-cursor { display: inline-block; width: 2px; height: 1em; background: var(--gold-light); margin-left: 2px; animation: blink 0.8s step-end infinite; vertical-align: text-bottom; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .chat-typing { display: flex; gap: 5px; align-items: center; padding: 10px 14px; }
+  .chat-typing span { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.45); animation: typingDot 1.2s infinite; }
+  .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
   @keyframes typingDot { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
 
   #chat-chips-wrap {
-    padding: 8px 12px 4px;
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-    flex-shrink: 0;
+    padding: 8px 12px 5px; background: var(--bg);
+    border-top: 1px solid var(--border); flex-shrink: 0;
   }
-  #chat-chips-label { font-size:0.68rem; color:var(--text-muted); letter-spacing:0.8px; font-family:'Oswald',sans-serif; margin-bottom:5px; }
-  #chat-chips { display:flex; flex-wrap:wrap; gap:5px; }
+  #chat-chips-label { font-size: 0.67rem; color: var(--text-muted); letter-spacing: 0.8px; font-family: 'Oswald', sans-serif; margin-bottom: 5px; }
+  #chat-chips { display: flex; flex-wrap: wrap; gap: 5px; }
   .chat-chip {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 4px 10px;
-    font-size: 0.74rem;
-    color: var(--navy);
-    cursor: pointer;
-    font-family: 'Source Sans 3', sans-serif;
-    transition: background 0.15s, border-color 0.15s;
-    white-space: nowrap;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 4px 10px; font-size: 0.73rem;
+    color: var(--navy); cursor: pointer; font-family: 'Source Sans 3', sans-serif;
+    transition: background 0.15s, border-color 0.15s; white-space: nowrap;
   }
   .chat-chip:hover { background: var(--gold-light); border-color: var(--gold); }
 
   #chat-input-row {
-    display: flex;
-    gap: 8px;
-    padding: 10px 12px;
-    border-top: 1px solid var(--border);
-    background: var(--bg-card);
-    flex-shrink: 0;
+    display: flex; gap: 8px; padding: 10px 12px;
+    border-top: 1px solid var(--border); background: var(--bg-card); flex-shrink: 0;
   }
   #chat-input {
-    flex: 1;
-    border: 1.5px solid var(--border);
-    border-radius: 9px;
-    padding: 8px 12px;
-    font-size: 0.875rem;
-    font-family: 'Source Sans 3', sans-serif;
-    outline: none;
-    background: var(--bg);
-    color: var(--text);
-    transition: border-color 0.15s;
+    flex: 1; border: 1.5px solid var(--border); border-radius: 9px;
+    padding: 8px 12px; font-size: 0.875rem; font-family: 'Source Sans 3', sans-serif;
+    outline: none; background: var(--bg); color: var(--text); transition: border-color 0.15s;
   }
   #chat-input:focus { border-color: var(--gold); }
   #chat-send {
-    background: var(--gold);
-    border: none;
-    border-radius: 9px;
-    padding: 8px 14px;
-    cursor: pointer;
-    font-size: 1.05rem;
-    color: var(--navy);
-    font-weight: 700;
-    transition: background 0.15s;
+    background: var(--gold); border: none; border-radius: 9px;
+    padding: 8px 14px; cursor: pointer; font-size: 1.05rem;
+    color: var(--navy); font-weight: 700; transition: background 0.15s, opacity 0.15s;
   }
   #chat-send:hover { background: var(--gold-light); }
+  #chat-send:disabled { opacity: 0.45; cursor: not-allowed; }
 
   @media (max-width: 420px) {
-    #chat-panel { width: calc(100vw - 16px); right: 8px; border-radius:14px; }
-    #chat-fab   { bottom: 16px; right: 14px; }
+    #chat-fab   { bottom: 80px; right: 14px; }
+    #chat-panel { width: calc(100vw - 16px); right: 8px; bottom: 150px; border-radius: 14px; }
   }
 </style>
 
-<!-- Chatbot HTML -->
 <button id="chat-fab" title="Tournament Assistant" style="position:fixed">
   🏐
   <div id="chat-fab-badge" style="display:none">1</div>
@@ -3921,27 +3948,33 @@ renderHomePage();
 
 <div id="chat-panel">
   <div id="chat-header">
-    <div id="chat-header-icon">📊</div>
+    <div style="font-size:1.2rem">📊</div>
     <div id="chat-header-title">
-      DPSC ASSISTANT
-      <div id="chat-header-sub">Ask about rules · players · standings · scores</div>
+      DPSC AI ASSISTANT
+      <div id="chat-header-sub">Powered by Claude · Ask anything</div>
     </div>
-    <button id="chat-close" title="Close">✕</button>
+    <div id="chat-header-actions">
+      <button class="chat-hbtn" id="chat-clear-btn" title="Clear chat">🗑</button>
+      <button class="chat-hbtn" id="chat-close">✕</button>
+    </div>
   </div>
+
   <div id="chat-messages"></div>
+
   <div id="chat-chips-wrap">
     <div id="chat-chips-label">QUICK QUESTIONS</div>
     <div id="chat-chips">
-      <button class="chat-chip">Standings</button>
+      <button class="chat-chip">Current standings</button>
       <button class="chat-chip">Points to qualify</button>
-      <button class="chat-chip">All players</button>
+      <button class="chat-chip">All team rosters</button>
       <button class="chat-chip">Upcoming matches</button>
-      <button class="chat-chip">Tournament format</button>
-      <button class="chat-chip">Serve rules</button>
-      <button class="chat-chip">Fouls list</button>
+      <button class="chat-chip">What is a carry foul?</button>
+      <button class="chat-chip">Rotation rules</button>
       <button class="chat-chip">Who gets the bye?</button>
+      <button class="chat-chip">Tournament format</button>
     </div>
   </div>
+
   <div id="chat-input-row">
     <input id="chat-input" type="text" placeholder="Ask anything about the tournament…" autocomplete="off">
     <button id="chat-send">➤</button>
@@ -3949,63 +3982,55 @@ renderHomePage();
 </div>
 
 <script>
-(function() {
-  /* ════════════════════════════════════════
-     KNOWLEDGE BASE — all rules from the site
-     ════════════════════════════════════════ */
-  const RULES_KB = {
-    /* Section 1 — Team Composition */
-    '1.1': { topic:'team composition', text:'Mandatory Strength: A team must always play at full strength even if the opponent has fewer players. (e.g. if Team A has 5 and Team B has 7, Team B must play with 7 players at all times).' },
-    '1.2': { topic:'team composition', text:'Minimum Requirements: A minimum of 5 players is required for the game to start.' },
-    '1.3': { topic:'forfeit', text:'Forfeiture: If 5 players are not present at the start time, a 15-minute courtesy wait is given, after which the game is forfeited to the opponents.' },
-    '1.4': { topic:'injury', text:'Injury Protocol: If a player is injured, a 5-minute timeout is provided for recovery. If not recovered, they must sit out for the current set.' },
-    /* Section 2 — Rotation */
-    '2.1': { topic:'rotation', text:'Mandatory Rotation: All seven players must rotate mandatorily.' },
-    '2.2': { topic:'rotation', text:'Rotation Timing: Rotation is mandatory whenever a point is won and the serving turn comes back to the team.' },
-    '2.3': { topic:'rotation foul', text:'Positioning Maintenance: If a position is swapped illegally at any point, a point is awarded to the opponent team.' },
-    '2.4': { topic:'rotation swap', text:'Legal Swapping: Swapping of positions is allowed only from the first row and only between adjacent positions (Left Spiker/Setter or Setter/Right Spiker).' },
-    '2.5': { topic:'rotation foul', text:'Front Row Restrictions: No 3-position swaps are allowed from the front row.' },
-    '2.6': { topic:'rotation foul', text:'Back Row Restrictions: No swapping is allowed from the back row.' },
-    '2.7': { topic:'rotation swap', text:'Swap Execution: The swap should happen by holding hands and only after the serve is completed.' },
-    /* Section 3 — Back Row & Net */
-    '3.1': { topic:'back row spiking', text:'Back Row Spiking: Spiking is allowed from the back row as long as the jump starts from a back-row position. A guideline will be placed outside the court for back-row guidance (umpires to judge).' },
-    '3.2': { topic:'back row foul net', text:'Back Row Foul: If a back-row player comes to the front row and spikes, it is a foul and a point is awarded to the opponent team.' },
-    '3.3': { topic:'net touch foul', text:'Net Touch: Touching the net is not allowed at any point during active play. It is a foul and a point will be awarded to the opponent team.' },
-    '3.4': { topic:'net crossing foul', text:'Crossing Under the Net: Spikers or offensive line players should not cross a whole foot under the net. As long as 1% of a foot remains on the line/original side it is valid. A single whole foot or both feet crossing is a foul (umpires\' discretion).' },
-    '3.5': { topic:'reach over foul net', text:'Reaching Over the Net: Reaching over the net while the ball is live in the opponent\'s court (Pass 1 or Pass 2) is a Reach Over Foul — a point is awarded to the opponent.' },
-    '3.6': { topic:'reach over exception', text:'Reach Over Exception: The only exception to Rule 3.5 is when the third player plays the final pass or when the opponent team is trying to block a spike.' },
-    '3.7': { topic:'boundary line', text:'Boundary Lines: Line ropes will be used in both courts. Any time the line is touched or the rope moves on ball impact, the ball is considered "In."' },
-    /* Section 4 — Ball Handling */
-    '4.1': { topic:'block touch', text:'Block Touches: A ball is considered blocked for a second touch by the same player only if, at the time of the block, both the spiker and blocker were in contact with the ball simultaneously.' },
-    '4.2': { topic:'carry foul', text:'Carry Foul: Whenever a player has two open palms for lifting the ball, it is a carry foul and a point is awarded to the opponent team.' },
-    '4.3': { topic:'rollover foul', text:'Rollover Foul: Whenever a ball has two impacts anywhere on the body, it is a rollover foul and a point is awarded to the opponent team.' },
-    '4.4': { topic:'legal touch', text:'Legal Touches: A single touch anywhere on the shoulder, head, hand, or a kick is considered legal.' },
-    /* Section 5 — Serving & Timing */
-    '5.1': { topic:'serve foul whistle', text:'Service Whistle: A server must wait until the referee\'s whistle to serve. If served before the whistle, it is a foul and a point is awarded to the opponent team.' },
-    '5.2': { topic:'serve line warning', text:'Service Line Warning: Touching the line while serving results in a first warning (once per team, per game — not per set). The next violation results in a foul and a point to the opponent.' },
-    '5.3': { topic:'timeout', text:'Timeouts: Each side is allowed to take one timeout per set for a maximum of 45 seconds.' },
-    '5.4': { topic:'side switch serve', text:'Side Switch (21-Point Game): Teams switch sides when either team first reaches 11 points.' },
-    '5.5': { topic:'side switch serve', text:'Side Switch (18-Point Game): Teams switch sides when either team first reaches 9 points.' },
-    /* Section 6 — Officiating */
-    '6.1': { topic:'continuous play officiating', text:'Continuous Play: Play should continue until the referee calls to stop, even if violations are noted by the opponent. Interrupting the game results in a point for the opponent.' },
-    '6.2': { topic:'referee authority', text:'Referee Authority: Referee decision is final. In unresolvable disputes, the point will be replayed with a re-serve.' },
-    '6.3': { topic:'captain referee', text:'Captain\'s Role: Captains should honor the referee\'s decision and keep playing.' },
-    '6.4': { topic:'captain dispute', text:'Dispute Communication: Only captains are allowed to talk to referees regarding disputes. If a team member talks directly, one warning per game is given; subsequently a point is forfeited.' },
-    '6.5': { topic:'exceptional scenario', text:'Exceptional Scenarios: If any scenario not mentioned occurs, referees will consult the organizing committee to decide on actions and potential rule amendments.' },
+(function () {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════
+     RAG CONTEXT — built dynamically from live data
+     ═══════════════════════════════════════════════ */
+  const RULES_TEXT = {
+    '1.1': 'Mandatory Strength: A team must always play at full strength even if the opponent has fewer players.',
+    '1.2': 'Minimum Requirements: A minimum of 5 players is required for the game to start.',
+    '1.3': 'Forfeiture: If 5 players are not present at start time, a 15-minute courtesy wait is given, after which the game is forfeited.',
+    '1.4': 'Injury Protocol: If a player is injured, a 5-minute timeout is given. If not recovered, they sit out the current set.',
+    '2.1': 'Mandatory Rotation: All seven players must rotate mandatorily.',
+    '2.2': 'Rotation Timing: Rotation is mandatory whenever a point is won and the serving turn comes back to the team.',
+    '2.3': 'Positioning Maintenance: Illegal position swap = point awarded to opponent.',
+    '2.4': 'Legal Swapping: Only from the first row, only between adjacent positions (Left Spiker/Setter or Setter/Right Spiker).',
+    '2.5': 'Front Row Restrictions: No 3-position swaps allowed from the front row.',
+    '2.6': 'Back Row Restrictions: No swapping allowed from the back row.',
+    '2.7': 'Swap Execution: Swap by holding hands, only after the serve is completed.',
+    '3.1': 'Back Row Spiking: Allowed as long as the jump starts from a back-row position.',
+    '3.2': 'Back Row Foul: If a back-row player comes to the front row and spikes, it is a foul — point to opponent.',
+    '3.3': 'Net Touch: Touching the net during active play is a foul — point to opponent.',
+    '3.4': 'Crossing Under the Net: A whole foot crossing is a foul. 1% remaining on the original side is valid.',
+    '3.5': 'Reaching Over the Net: Reaching over while ball is live in opponent court (Pass 1 or Pass 2) is a Reach Over Foul.',
+    '3.6': 'Reach Over Exception: Exception to 3.5 when the third player plays the final pass or opponent is blocking a spike.',
+    '3.7': 'Boundary Lines: Line ropes used in both courts. If the rope moves on ball impact, the ball is "In."',
+    '4.1': 'Block Touches: A second touch by the same blocker is valid only if both spiker and blocker contacted the ball simultaneously.',
+    '4.2': 'Carry Foul: Two open palms used to lift the ball = carry foul — point to opponent.',
+    '4.3': 'Rollover Foul: Ball makes two impacts on the body = rollover foul — point to opponent.',
+    '4.4': 'Legal Touches: A single touch on shoulder, head, hand, or a kick is legal.',
+    '5.1': 'Service Whistle: Server must wait for the referee whistle. Serving before it = foul — point to opponent.',
+    '5.2': 'Service Line Warning: Touching the line while serving = first warning (once per team per game). Next violation = foul.',
+    '5.3': 'Timeouts: Each team gets one timeout per set, max 45 seconds.',
+    '5.4': 'Side Switch (21-point game): Teams switch sides when either team first reaches 11 points.',
+    '5.5': 'Side Switch (18-point game): Teams switch sides when either team first reaches 9 points.',
+    '6.1': 'Continuous Play: Play continues until referee calls stop. Interrupting = point to opponent.',
+    '6.2': 'Referee Authority: Referee decision is final. Unresolvable disputes result in a re-serve.',
+    '6.3': "Captain's Role: Captains must honor referee decisions and keep playing.",
+    '6.4': 'Dispute Communication: Only captains may talk to referees. Direct contact by team member = warning, then point forfeit.',
+    '6.5': 'Exceptional Scenarios: Referees consult the organizing committee for any scenario not covered.',
   };
 
-  const ALL_FOULS = Object.values(RULES_KB).filter(r =>
-    /foul|forfeit|violation/.test(r.topic) || /foul|point.*awarded|point.*opponent/.test(r.text.toLowerCase())
-  );
+  function tName(id) {
+    const t = TEAMS.find(x => x.id === id);
+    return t ? t.name : id;
+  }
 
-  /* ════════════════════════════════════════
-     DATA HELPERS
-     ════════════════════════════════════════ */
-  function tName(id) { const t = TEAMS.find(x => x.id === id); return t ? t.name : id; }
-
-  function getStandings() {
+  function calcStandings() {
     const stats = {};
-    TEAMS.forEach(t => { stats[t.id] = { wins:0, losses:0, pts:0, scored:0, conceded:0 }; });
+    TEAMS.forEach(t => { stats[t.id] = { wins: 0, losses: 0, pts: 0, scored: 0, conceded: 0 }; });
     matchData.forEach(m => {
       if (m.round !== 'rr' || m.status !== 'completed') return;
       const s1 = m.score1 ?? 0, s2 = m.score2 ?? 0;
@@ -4016,403 +4041,174 @@ renderHomePage();
     });
     return TEAMS.map(t => ({ ...t, ...stats[t.id] })).sort((a, b) => {
       if (b.pts !== a.pts) return b.pts - a.pts;
-      const h2h = matchData.find(m => m.round==='rr' && m.status==='completed' &&
-        ((m.team1===a.id && m.team2===b.id)||(m.team1===b.id && m.team2===a.id)));
-      if (h2h) {
-        const aWon = (h2h.team1===a.id && (h2h.score1??0)>(h2h.score2??0)) ||
-                     (h2h.team2===a.id && (h2h.score2??0)>(h2h.score1??0));
-        return aWon ? -1 : 1;
+      const h = matchData.find(m => m.round === 'rr' && m.status === 'completed' &&
+        ((m.team1 === a.id && m.team2 === b.id) || (m.team1 === b.id && m.team2 === a.id)));
+      if (h) {
+        const aW = (h.team1 === a.id && (h.score1 ?? 0) > (h.score2 ?? 0)) ||
+                   (h.team2 === a.id && (h.score2 ?? 0) > (h.score1 ?? 0));
+        return aW ? -1 : 1;
       }
       return (b.scored - b.conceded) - (a.scored - a.conceded);
     });
   }
 
-  function findTeamInQuery(q) {
-    return TEAMS.find(t =>
-      q.includes(t.name.toLowerCase()) ||
-      q.includes(t.short.toLowerCase()) ||
-      q.includes(t.id.toLowerCase())
-    );
-  }
+  function buildSystemPrompt() {
+    const st = calcStandings();
+    const rrDone  = matchData.filter(m => m.round === 'rr' && m.status === 'completed').length;
+    const rrTotal = matchData.filter(m => m.round === 'rr').length;
 
-  function findPlayerInQuery(q) {
-    for (const t of TEAMS) {
-      const found = t.members.find(m => q.includes(m.toLowerCase().replace(/\s*\(.*\)/, '')));
-      if (found) return { player: found, team: t };
-    }
-    return null;
-  }
+    const rulesBlock = Object.entries(RULES_TEXT)
+      .map(([n, t]) => `  Rule ${n}: ${t}`).join('\n');
 
-  function remainingRR(teamId) {
-    return matchData.filter(m => m.round === 'rr' && m.status !== 'completed' &&
-      (m.team1 === teamId || m.team2 === teamId));
-  }
+    const standingsBlock = st.map((t, i) => {
+      const diff = t.scored - t.conceded;
+      const qual = i === 0 ? '[BYE → Grand Final]' : i <= 3 ? '[Playoff]' : '[Eliminated]';
+      return `  ${i + 1}. ${t.name} (${t.short}) — ${t.wins}W/${t.losses}L, ${t.pts}pts, +${t.scored}/${t.conceded} (diff:${diff >= 0 ? '+' : ''}${diff}) ${qual}`;
+    }).join('\n');
 
-  /* ════════════════════════════════════════
-     RESPONSE ENGINE
-     ════════════════════════════════════════ */
-  function respond(raw) {
-    const q = raw.toLowerCase().trim();
-    const st = getStandings();
+    const rostersBlock = TEAMS.map(t => {
+      const members = t.members.map(m => m.replace(' (Captain)', ' [Captain]')).join(', ');
+      return `  ${t.name} (${t.short}): ${members}`;
+    }).join('\n');
 
-    /* ── HELP ── */
-    if (/^help$|what can (you|i)|what.*ask|topics/.test(q)) {
-      return `I can answer questions about:<br><br>
-<span class="tag">📊 Standings</span> <span class="tag">🏆 Qualifying</span> <span class="tag">🏐 Match scores</span><br>
-<span class="tag">👥 Players & rosters</span> <span class="tag">📅 Schedule</span><br>
-<span class="tag">📋 Game rules</span> <span class="tag">⚠️ Fouls</span> <span class="tag">🔄 Rotation</span><br>
-<span class="tag">🔔 Serving</span> <span class="tag">✋ Ball handling</span> <span class="tag">⚖️ Officiating</span><br><br>
-Try: <i>"Is net touch a foul?"</i> · <i>"Who is on Billa?"</i> · <i>"What is the carry foul?"</i>`;
-    }
-
-    /* ── SPECIFIC RULE NUMBER (e.g. "rule 3.2") ── */
-    const ruleNum = q.match(/rule\s*(\d+\.\d+)/);
-    if (ruleNum && RULES_KB[ruleNum[1]]) {
-      const r = RULES_KB[ruleNum[1]];
-      return `<b>Rule ${ruleNum[1]}:</b><br>${r.text}`;
-    }
-
-    /* ── ALL FOULS ── */
-    if (/\bfoul(s)?\b/.test(q) && !/specific|one|which/.test(q)) {
-      let html = `<b>⚠️ Fouls in this tournament:</b><br><br>`;
-      const foulRules = Object.entries(RULES_KB).filter(([,r]) => /foul|forfeit/.test(r.text.toLowerCase()) && /point.*award|foul/.test(r.text.toLowerCase()));
-      foulRules.forEach(([num, r]) => {
-        const title = r.text.split(':')[0];
-        html += `<span class="tag">${num}</span> ${title}<br>`;
-      });
-      html += `<br><span class="dim">Ask about any specific foul for details.</span>`;
-      return html;
-    }
-
-    /* ── NET TOUCH ── */
-    if (/net.*touch|touch.*net/.test(q)) {
-      return `<b>Net Touch (Rule 3.3):</b><br>${RULES_KB['3.3'].text}<br><br><b>Crossing Under Net (Rule 3.4):</b><br>${RULES_KB['3.4'].text}`;
-    }
-
-    /* ── CARRY FOUL ── */
-    if (/carry/.test(q)) {
-      return `<b>Carry Foul (Rule 4.2):</b><br>${RULES_KB['4.2'].text}`;
-    }
-
-    /* ── ROLLOVER FOUL ── */
-    if (/rollover|double.?(hit|touch|contact)/.test(q)) {
-      return `<b>Rollover Foul (Rule 4.3):</b><br>${RULES_KB['4.3'].text}`;
-    }
-
-    /* ── BLOCK ── */
-    if (/block/.test(q)) {
-      return `<b>Block Touches (Rule 4.1):</b><br>${RULES_KB['4.1'].text}`;
-    }
-
-    /* ── LEGAL TOUCH ── */
-    if (/legal.*touch|touch.*legal|kick|head.*ball|shoulder/.test(q)) {
-      return `<b>Legal Touches (Rule 4.4):</b><br>${RULES_KB['4.4'].text}`;
-    }
-
-    /* ── REACH OVER ── */
-    if (/reach.?over|reach.*net/.test(q)) {
-      return `<b>Reach Over (Rule 3.5):</b><br>${RULES_KB['3.5'].text}<br><br><b>Exception (Rule 3.6):</b><br>${RULES_KB['3.6'].text}`;
-    }
-
-    /* ── BACK ROW ── */
-    if (/back.?row/.test(q)) {
-      return `<b>Back Row Rules:</b><br><br><b>Spiking (3.1):</b><br>${RULES_KB['3.1'].text}<br><br><b>Foul (3.2):</b><br>${RULES_KB['3.2'].text}`;
-    }
-
-    /* ── BOUNDARY / LINE ── */
-    if (/boundary|line.*rope|rope|in.*out|out.*in|ball.*in|ball.*out/.test(q)) {
-      return `<b>Boundary Lines (Rule 3.7):</b><br>${RULES_KB['3.7'].text}`;
-    }
-
-    /* ── ROTATION ── */
-    if (/rotat|swap|position/.test(q)) {
-      return `<b>Rotation Rules:</b><br><br>
-<b>2.1</b> ${RULES_KB['2.1'].text}<br><br>
-<b>2.2</b> ${RULES_KB['2.2'].text}<br><br>
-<b>2.3</b> ${RULES_KB['2.3'].text}<br><br>
-<b>2.4</b> ${RULES_KB['2.4'].text}<br><br>
-<b>2.5</b> ${RULES_KB['2.5'].text}<br><br>
-<b>2.6</b> ${RULES_KB['2.6'].text}<br><br>
-<b>2.7</b> ${RULES_KB['2.7'].text}`;
-    }
-
-    /* ── SERVE / SERVING ── */
-    if (/serv|whistle/.test(q)) {
-      return `<b>Serving Rules:</b><br><br>
-<b>5.1 Whistle:</b> ${RULES_KB['5.1'].text}<br><br>
-<b>5.2 Service Line:</b> ${RULES_KB['5.2'].text}<br><br>
-<b>5.4 Side Switch (21-pt):</b> ${RULES_KB['5.4'].text}<br><br>
-<b>5.5 Side Switch (18-pt):</b> ${RULES_KB['5.5'].text}`;
-    }
-
-    /* ── TIMEOUT ── */
-    if (/timeout|time.out/.test(q)) {
-      return `<b>Timeouts (Rule 5.3):</b><br>${RULES_KB['5.3'].text}`;
-    }
-
-    /* ── SIDE SWITCH ── */
-    if (/side.switch|switch.*side|change.*side/.test(q)) {
-      return `<b>Side Switching:</b><br><br><b>21-Point Game (5.4):</b> ${RULES_KB['5.4'].text}<br><br><b>18-Point Game (5.5):</b> ${RULES_KB['5.5'].text}`;
-    }
-
-    /* ── REFEREE / OFFICIAL ── */
-    if (/refer|umpire|official|captain.*dispute|dispute.*captain/.test(q)) {
-      return `<b>Officiating Rules:</b><br><br>
-<b>6.1</b> ${RULES_KB['6.1'].text}<br><br>
-<b>6.2</b> ${RULES_KB['6.2'].text}<br><br>
-<b>6.3</b> ${RULES_KB['6.3'].text}<br><br>
-<b>6.4</b> ${RULES_KB['6.4'].text}`;
-    }
-
-    /* ── FORFEIT / MINIMUM PLAYERS ── */
-    if (/forfeit|minimum.*player|player.*minimum/.test(q)) {
-      return `<b>Forfeiture (Rule 1.3):</b><br>${RULES_KB['1.3'].text}<br><br><b>Minimum Requirements (Rule 1.2):</b><br>${RULES_KB['1.2'].text}`;
-    }
-
-    /* ── INJURY ── */
-    if (/injur/.test(q)) {
-      return `<b>Injury Protocol (Rule 1.4):</b><br>${RULES_KB['1.4'].text}`;
-    }
-
-    /* ── PLAYER LOOKUP ── */
-    const playerHit = findPlayerInQuery(q);
-    if (playerHit) {
-      const { player, team } = playerHit;
-      const ts = st.find(s => s.id === team.id);
-      const rank = st.indexOf(ts) + 1;
-      const isCapt = player.includes('(Captain)');
-      const cleanName = player.replace(/\s*\(.*\)/, '');
-      return `<b>${cleanName}</b>${isCapt ? ' 🏅 <span class="tag">Captain</span>' : ''}<br><br>
-Team: <span class="gold">${team.name}</span> (${team.short})<br>
-Team Rank: <span class="gold">#${rank}</span><br>
-Team Record: ${ts.wins}W / ${ts.losses}L · ${ts.pts} pts`;
-    }
-
-    /* ── ALL PLAYERS ── */
-    if (/all.*player|every.*player|list.*player|player.*list|full.*roster|roster/.test(q)) {
-      let html = '<b>👥 All Players by Team:</b><br>';
-      TEAMS.forEach(t => {
-        const members = t.members.map(m => m.includes('(Captain)') ? `<span class="gold">${m.replace(' (Captain)', '')} ©</span>` : m).join(', ');
-        html += `<br><b>${t.name}</b> (${t.short})<br>${members}<br>`;
-      });
-      return html;
-    }
-
-    /* ── WHO IS CAPTAIN ── */
-    if (/captain/.test(q)) {
-      const teamHit2 = findTeamInQuery(q);
-      if (teamHit2) {
-        const capt = teamHit2.members.find(m => m.includes('(Captain)'));
-        return capt
-          ? `<b>${capt.replace(' (Captain)', '')}</b> is the captain of <span class="gold">${teamHit2.name}</span>.`
-          : `Captain info not available for ${teamHit2.name}.`;
-      }
-      let html = '<b>Team Captains:</b><br><br>';
-      TEAMS.forEach(t => {
-        const c = t.members.find(m => m.includes('(Captain)'));
-        if (c) html += `<span class="gold">${t.short}</span> — ${c.replace(' (Captain)', '')}<br>`;
-      });
-      return html;
-    }
-
-    /* ── TEAM ROSTER (specific team) ── */
-    if (/who.*on|member|squad|roster|player.*in|in.*team/.test(q)) {
-      const teamHit2 = findTeamInQuery(q);
-      if (teamHit2) {
-        const members = teamHit2.members.map(m => {
-          const clean = m.replace(' (Captain)', '');
-          return m.includes('(Captain)') ? `<span class="gold">${clean} ©</span>` : clean;
-        }).join(', ');
-        return `<b>${teamHit2.name} (${teamHit2.short})</b><br>${teamHit2.members.length} players:<br><br>${members}`;
-      }
-    }
-
-    /* ── STANDINGS ── */
-    if (/standing|rank|table|leaderboard/.test(q)) {
-      const rrDone  = matchData.filter(m => m.round === 'rr' && m.status === 'completed').length;
-      const rrTotal = matchData.filter(m => m.round === 'rr').length;
-      let html = `<span class="dim">Round Robin: ${rrDone}/${rrTotal} played</span>
-<table><tr><th>#</th><th>Team</th><th>W</th><th>L</th><th>Pts</th><th>Diff</th></tr>`;
-      st.forEach((t, i) => {
-        const diff = t.scored - t.conceded;
-        const badge = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '';
-        html += `<tr><td>${i+1}${badge}</td><td>${t.short}</td><td>${t.wins}</td><td>${t.losses}</td><td class="gold">${t.pts}</td><td>${diff>=0?'+':''}${diff}</td></tr>`;
-      });
-      html += '</table><br><span class="dim">Rank #1 → BYE to Final · Ranks #2–4 → Playoffs · Rank #5 → Eliminated</span>';
-      return html;
-    }
-
-    /* ── QUALIFY / POINTS TO QUALIFY ── */
-    if (/qualif|how many.*win|how many.*point|points.*needed|need.*win|need.*point|advance/.test(q)) {
-      const rrDone = matchData.filter(m => m.round === 'rr' && m.status === 'completed').length;
-      let msg = `<b>Qualification System:</b><br>
-• <span class="gold">Rank #1</span> → BYE to Grand Final<br>
-• <span class="gold">Ranks #2–4</span> → Eliminator playoffs<br>
-• <span class="gold">Rank #5</span> → Eliminated<br>
-• Each Round Robin win = <span class="gold">1 point</span><br>
-• Max possible: <span class="gold">4 points</span> (4 wins)<br><br>`;
-      if (rrDone === 0) {
-        msg += `No matches played yet. To be safe, aim for <span class="gold">3+ wins</span>.`;
+    const matchesBlock = matchData.map(m => {
+      if (m.status === 'completed') {
+        return `  [COMPLETED] ${m.roundLabel}: ${tName(m.team1)} ${m.score1}–${m.score2} ${tName(m.team2)}`;
+      } else if (m.status === 'live') {
+        return `  [LIVE] ${m.roundLabel}: ${tName(m.team1)} vs ${tName(m.team2)}`;
       } else {
-        const leader = st[0];
-        const danger = st[4];
-        msg += `Current leader: <span class="gold">${leader.name} (${leader.pts}pts)</span><br>`;
-        msg += `At risk of elimination: <span class="gold">${danger.name} (${danger.pts}pts)</span>`;
-        if (st[3].pts === danger.pts) msg += `<br><span class="dim">Rank #4 and #5 are level — head-to-head and point diff decides.</span>`;
+        return `  [PENDING] ${m.roundLabel}: ${tName(m.team1)} vs ${tName(m.team2)}`;
       }
-      return msg;
+    }).join('\n');
+
+    return `You are the official AI assistant for the DPSC Spring 2026 Sand Volleyball Tournament.
+Answer questions accurately and concisely using the data below. Keep responses brief but complete.
+Use plain text — no markdown headers or bullet dashes (the UI renders HTML so you can use <b>, <br> tags if helpful, but keep it clean).
+
+=== TOURNAMENT INFO ===
+Name: DPSC Spring 2026 Volleyball Tournament
+Game Day: May 9, 2026
+Format: 5 teams, Round Robin then Playoffs
+
+=== QUALIFICATION SYSTEM ===
+- Each Round Robin win = 1 point (max 4 points possible)
+- Rank #1 after RR → BYE straight to Grand Final
+- Ranks #2–4 → Eliminator playoffs (A: Seed 2 vs 5, B: Seed 3 vs 4)
+- Rank #5 → Eliminated
+- Tiebreaker order: 1) Points, 2) Head-to-head, 3) Point differential
+- Semifinal: Best of 3 sets | Grand Final: Sets to 18–18–21
+
+=== CURRENT STANDINGS (Round Robin: ${rrDone}/${rrTotal} played) ===
+${standingsBlock}
+
+=== TEAM ROSTERS ===
+${rostersBlock}
+
+=== ALL MATCHES ===
+${matchesBlock}
+
+=== GAME RULES ===
+${rulesBlock}
+
+When asked about rules, cite the rule number. When asked about standings or stats, use the live data above.
+If a question is outside the tournament scope, politely say you can only help with tournament-related questions.`;
+  }
+
+  /* ═══════════════════════════════════
+     LLM CALL — Claude via Anthropic API
+     ═══════════════════════════════════ */
+  const MODEL   = 'claude-haiku-4-5-20251001';
+  const API_URL = 'https://api.anthropic.com/v1/messages';
+  const HISTORY_LIMIT = 10; // keep last 10 turns
+
+  let conversationHistory = [];
+
+  async function callLLM(userMessage, onChunk, onDone, onError) {
+    const apiKey = window._anthropicApiKey;
+    if (!apiKey) {
+      onError('AI assistant not configured. Ask the admin to set the API key via the Admin panel.');
+      return;
     }
 
-    /* ── BYE ── */
-    if (/\bbye\b/.test(q)) {
-      const rrDone = matchData.filter(m => m.round === 'rr' && m.status === 'completed').length;
-      if (!rrDone) return `The <span class="gold">BYE to the Grand Final</span> goes to the Rank #1 team after Round Robin. No matches played yet.`;
-      return `<span class="gold">${st[0].name}</span> currently holds Rank #1 with <b>${st[0].pts} pts</b> and would receive the <span class="gold">BYE straight to the Grand Final</span>.`;
+    conversationHistory.push({ role: 'user', content: userMessage });
+    if (conversationHistory.length > HISTORY_LIMIT) {
+      conversationHistory = conversationHistory.slice(-HISTORY_LIMIT);
     }
 
-    /* ── HEAD TO HEAD ── */
-    if (/h2h|head.to.head|vs\.?|versus/.test(q)) {
-      const matched = TEAMS.filter(t =>
-        q.includes(t.name.toLowerCase()) || q.includes(t.short.toLowerCase()) || q.includes(t.id)
-      );
-      if (matched.length >= 2) {
-        const [a, b] = matched;
-        const m = matchData.find(mx => mx.round === 'rr' &&
-          ((mx.team1===a.id && mx.team2===b.id)||(mx.team1===b.id && mx.team2===a.id)));
-        if (!m || m.status !== 'completed') {
-          const scheduled = matchData.find(mx =>
-            ((mx.team1===a.id && mx.team2===b.id)||(mx.team1===b.id && mx.team2===a.id)));
-          return scheduled
-            ? `${a.name} vs ${b.name} — <span class="dim">match not yet played (${scheduled.roundLabel})</span>.`
-            : `No scheduled match found between ${a.name} and ${b.name}.`;
+    let fullText = '';
+    try {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true',
+        },
+        body: JSON.stringify({
+          model: MODEL,
+          max_tokens: 1024,
+          system: buildSystemPrompt(),
+          messages: conversationHistory,
+          stream: true,
+        }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        const msg = err?.error?.message || `HTTP ${res.status}`;
+        if (res.status === 401) throw new Error('Invalid API key. Please check your key in ⚙️ settings.');
+        if (res.status === 429) throw new Error('Rate limit hit. Please wait a moment and try again.');
+        throw new Error(msg);
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop();
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          const data = line.slice(6).trim();
+          if (data === '[DONE]') continue;
+          try {
+            const parsed = JSON.parse(data);
+            if (parsed.type === 'content_block_delta' && parsed.delta?.type === 'text_delta') {
+              fullText += parsed.delta.text;
+              onChunk(fullText);
+            }
+          } catch (_) {}
         }
-        const [s1,s2] = m.team1===a.id ? [m.score1,m.score2] : [m.score2,m.score1];
-        const winner = s1 > s2 ? a.name : b.name;
-        return `<b>${a.name} vs ${b.name}</b><br>Score: <span class="gold">${s1} – ${s2}</span><br>🏆 Winner: <span class="gold">${winner}</span>`;
       }
-      return `Mention two team names. Teams: ${TEAMS.map(t=>t.short).join(', ')}`;
-    }
 
-    /* ── SPECIFIC TEAM STATS ── */
-    const teamHit = findTeamInQuery(q);
-    if (teamHit && !/vs|versus/.test(q)) {
-      const ts = st.find(s => s.id === teamHit.id);
-      const rank = st.indexOf(ts) + 1;
-      const diff = ts.scored - ts.conceded;
-      const pending = remainingRR(teamHit.id);
-      const capt = teamHit.members.find(m => m.includes('(Captain)'));
-      const statusLabel = rank===1 ? '🥇 Leading — on track for BYE' :
-                          rank<=4  ? `Rank #${rank} — in playoff zone` :
-                                     `Rank #5 — at risk of elimination`;
-      let html = `<b>${teamHit.name} (${teamHit.short})</b><br>
-<hr>
-Captain: <span class="gold">${capt ? capt.replace(' (Captain)','') : '—'}</span><br>
-Players: ${teamHit.members.length} · ${teamHit.members.map(m=>m.replace(' (Captain)','')).join(', ')}<br>
-<hr>
-Rank: <span class="gold">#${rank}</span> · Status: ${statusLabel}<br>
-W / L: <span class="gold">${ts.wins}</span> / ${ts.losses} · Points: <span class="gold">${ts.pts}</span><br>
-Scored / Conceded: ${ts.scored} / ${ts.conceded} · Diff: ${diff>=0?'+':''}${diff}<br>`;
-      if (pending.length) {
-        html += `<br>RR matches left (${pending.length}): `;
-        html += pending.map(m => `${tName(m.team1===teamHit.id ? m.team2 : m.team1)}`).join(', ');
-      } else {
-        html += `<br><span class="dim">All round-robin matches completed.</span>`;
-      }
-      return html;
+      conversationHistory.push({ role: 'assistant', content: fullText });
+      onDone(fullText);
+    } catch (err) {
+      // Remove the user message we added if the call failed
+      conversationHistory.pop();
+      onError(err.message || 'Something went wrong. Please try again.');
     }
-
-    /* ── TOP SCORER ── */
-    if (/top.*scor|most.*point|highest.*score|best.*offens/.test(q)) {
-      const sorted = [...st].sort((a,b) => b.scored - a.scored);
-      let html = `<b>Points Scored (Round Robin):</b><table><tr><th>Team</th><th>For</th><th>Vs</th><th>Diff</th></tr>`;
-      sorted.forEach(t => {
-        const diff = t.scored - t.conceded;
-        html += `<tr><td>${t.short}</td><td class="gold">${t.scored}</td><td>${t.conceded}</td><td>${diff>=0?'+':''}${diff}</td></tr>`;
-      });
-      return html + '</table>';
-    }
-
-    /* ── POINT DIFFERENTIAL ── */
-    if (/diff|differential|margin/.test(q)) {
-      let html = `<b>Point Differentials:</b><table><tr><th>Team</th><th>For</th><th>Vs</th><th>Diff</th></tr>`;
-      st.forEach(t => {
-        const diff = t.scored - t.conceded;
-        html += `<tr><td>${t.short}</td><td>${t.scored}</td><td>${t.conceded}</td><td class="${diff>=0?'gold':''}">${diff>=0?'+':''}${diff}</td></tr>`;
-      });
-      return html + '</table>';
-    }
-
-    /* ── UPCOMING / SCHEDULE ── */
-    if (/upcoming|next match|schedul|pending|fixture/.test(q)) {
-      const pending = matchData.filter(m => m.status !== 'completed');
-      if (!pending.length) return '🏆 All matches have been completed!';
-      let html = `<b>${pending.length} match${pending.length!==1?'es':''} remaining:</b><br>`;
-      pending.slice(0,8).forEach(m => {
-        const live = m.status==='live' ? ' <span style="color:#FFC934;font-size:0.75rem">● LIVE</span>' : '';
-        html += `<br>• <span class="tag">${m.roundLabel}</span> ${tName(m.team1)} vs ${tName(m.team2)}${live}`;
-      });
-      if (pending.length > 8) html += `<br><span class="dim">…and ${pending.length-8} more</span>`;
-      return html;
-    }
-
-    /* ── COMPLETED RESULTS ── */
-    if (/result|completed|finished|played|score/.test(q)) {
-      const done = matchData.filter(m => m.status === 'completed');
-      if (!done.length) return 'No matches completed yet.';
-      let html = `<b>${done.length} match${done.length!==1?'es':''} completed:</b><br>`;
-      done.slice(0,8).forEach(m => {
-        html += `<br>• ${tName(m.team1)} <span class="gold">${m.score1??'-'} – ${m.score2??'-'}</span> ${tName(m.team2)}`;
-      });
-      if (done.length > 8) html += `<br><span class="dim">…and ${done.length-8} more</span>`;
-      return html;
-    }
-
-    /* ── TOURNAMENT FORMAT ── */
-    if (/format|bracket|how.*work|structure|semifinal|grand final|elimin/.test(q)) {
-      return `<b>Tournament Format:</b><br><br>
-<b>1. Round Robin</b><br>All 5 teams play each other — 10 matches, single set to <span class="gold">21 pts</span>.<br><br>
-<b>2. Ranking</b><br>
-• <span class="gold">Rank #1</span> → BYE to Grand Final<br>
-• <span class="gold">Ranks #2–4</span> → Eliminators<br>
-• <span class="gold">Rank #5</span> → Eliminated<br><br>
-<b>3. Eliminators</b><br>
-• Elim A: Seed #2 vs Seed #5<br>
-• Elim B: Seed #3 vs Seed #4<br><br>
-<b>4. Semifinal</b><br>Elim A winner vs Elim B winner · Best of 3 sets<br><br>
-<b>5. Grand Final</b><br>Seed #1 (bye) vs Semifinal winner · Sets to <span class="gold">18 – 18 – 21</span>`;
-    }
-
-    /* ── TEAMS LIST ── */
-    if (/teams|all team|which team|how many team/.test(q)) {
-      let html = `<b>${TEAMS.length} teams in the tournament:</b><br><br>`;
-      TEAMS.forEach(t => {
-        const capt = t.members.find(m => m.includes('(Captain)'));
-        html += `<span class="gold">${t.short}</span> — ${t.name}<br>`;
-        if (capt) html += `<span class="dim">Captain: ${capt.replace(' (Captain)','')}</span><br>`;
-      });
-      return html;
-    }
-
-    /* ── FALLBACK ── */
-    return `I couldn't find a specific answer for that. Try asking about:<br><br>
-<span class="tag">standings</span> <span class="tag">qualifying</span> <span class="tag">a team name</span><br>
-<span class="tag">a player name</span> <span class="tag">fouls</span> <span class="tag">rotation</span><br>
-<span class="tag">serve rules</span> <span class="tag">timeout</span> <span class="tag">referee</span><br><br>
-Or type <b>help</b> for a full topic list.`;
   }
 
-  /* ════════════════════════════════════════
+  /* ═══════════════
      UI WIRING
-     ════════════════════════════════════════ */
-  const fab   = document.getElementById('chat-fab');
-  const badge = document.getElementById('chat-fab-badge');
-  const panel = document.getElementById('chat-panel');
-  const msgs  = document.getElementById('chat-messages');
-  const input = document.getElementById('chat-input');
-  const send  = document.getElementById('chat-send');
-  const close = document.getElementById('chat-close');
+     ═══════════════ */
+  const fab      = document.getElementById('chat-fab');
+  const badge    = document.getElementById('chat-fab-badge');
+  const panel    = document.getElementById('chat-panel');
+  const msgs     = document.getElementById('chat-messages');
+  const input    = document.getElementById('chat-input');
+  const sendBtn  = document.getElementById('chat-send');
+  const closeBtn = document.getElementById('chat-close');
+  const clearBtn = document.getElementById('chat-clear-btn');
 
   let opened = false;
+  let busy   = false;
 
   function addMsg(html, who) {
     const div = document.createElement('div');
@@ -4423,31 +4219,52 @@ Or type <b>help</b> for a full topic list.`;
     return div;
   }
 
-  function showTyping() {
-    const t = document.createElement('div');
-    t.className = 'chat-msg bot chat-typing';
-    t.innerHTML = '<span></span><span></span><span></span>';
-    msgs.appendChild(t);
-    msgs.scrollTop = msgs.scrollHeight;
-    return t;
+  function setLoading(on) {
+    busy = on;
+    sendBtn.disabled = on;
+    input.disabled   = on;
   }
 
   function handleSend() {
     const raw = input.value.trim();
-    if (!raw) return;
-    addMsg(raw, 'user');
+    if (!raw || busy) return;
     input.value = '';
-    const typing = showTyping();
-    setTimeout(() => {
-      typing.remove();
-      addMsg(respond(raw), 'bot');
-    }, 320);
+
+    addMsg(raw, 'user');
+    setLoading(true);
+
+    // Show streaming bubble
+    const botDiv = addMsg('<span class="chat-cursor"></span>', 'bot');
+
+    callLLM(
+      raw,
+      (partial) => {
+        botDiv.innerHTML = partial + '<span class="chat-cursor"></span>';
+        msgs.scrollTop = msgs.scrollHeight;
+      },
+      (final) => {
+        botDiv.innerHTML = final;
+        msgs.scrollTop = msgs.scrollHeight;
+        setLoading(false);
+      },
+      (errMsg) => {
+        botDiv.className = 'chat-msg error';
+        botDiv.innerHTML = '⚠️ ' + errMsg;
+        msgs.scrollTop = msgs.scrollHeight;
+        setLoading(false);
+      }
+    );
   }
 
-  // Show badge hint on load (after 3s)
-  setTimeout(() => {
-    if (!opened) badge.style.display = 'flex';
-  }, 3000);
+  // Clear chat
+  clearBtn.addEventListener('click', () => {
+    msgs.innerHTML = '';
+    conversationHistory = [];
+    addMsg('🗑 Chat cleared. Ask me anything!', 'bot');
+  });
+
+  // FAB
+  setTimeout(() => { if (!opened) badge.style.display = 'flex'; }, 3000);
 
   fab.addEventListener('click', () => {
     opened = true;
@@ -4455,14 +4272,20 @@ Or type <b>help</b> for a full topic list.`;
     panel.classList.toggle('open');
     if (panel.classList.contains('open')) {
       if (msgs.children.length === 0) {
-        addMsg(`👋 Hi! I'm the <b>DPSC Tournament Assistant</b>.<br><br>Ask me about <b>standings</b>, <b>players</b>, <b>game rules</b>, <b>fouls</b>, <b>match scores</b>, and more.<br><br>Type <b>help</b> to see all topics.`, 'bot');
+        addMsg(
+          "👋 Hi! I'm the <b>DPSC AI Assistant</b>, powered by Claude.<br>Ask me anything — rules, standings, players, scores, qualifying, or anything else about the tournament!",
+          'bot'
+        );
       }
       input.focus();
     }
   });
 
-  close.addEventListener('click', () => panel.classList.remove('open'));
-  send.addEventListener('click', handleSend);
+  closeBtn.addEventListener('click', () => {
+    panel.classList.remove('open');
+  });
+
+  sendBtn.addEventListener('click', handleSend);
   input.addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
 
   document.querySelectorAll('.chat-chip').forEach(chip => {
@@ -4472,7 +4295,11 @@ Or type <b>help</b> for a full topic list.`;
         opened = true;
         badge.style.display = 'none';
         if (msgs.children.length === 0) {
-          addMsg(`👋 Hi! I'm the <b>DPSC Tournament Assistant</b>.<br><br>Ask me about <b>standings</b>, <b>players</b>, <b>game rules</b>, <b>fouls</b>, <b>match scores</b>, and more.<br><br>Type <b>help</b> to see all topics.`, 'bot');
+          addMsg(
+            "👋 Hi! I'm the <b>DPSC AI Assistant</b>, powered by Claude.<br>Ask me anything about the tournament!",
+            'bot'
+          );
+          // settings panel already visible by default when no key
         }
       }
       input.value = chip.textContent;
