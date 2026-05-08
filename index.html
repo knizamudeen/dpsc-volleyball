@@ -1091,42 +1091,53 @@
     align-items: flex-end;
   }
   /* ── Promo video section ── */
-  .promo-section {
-    padding: 0 16px 8px;
-    display: flex;
-    flex-direction: column;
+  /* ── Promo video modal ── */
+  .promo-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0,0,0,0.85);
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    padding: 16px;
   }
-  .promo-video-wrap {
+  .promo-modal-overlay.open { display: flex; }
+  .promo-modal-box {
     position: relative;
     width: 100%;
-    max-width: 320px;
+    max-width: 340px;
     border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 6px 32px rgba(26,46,74,0.22);
     background: #000;
     aspect-ratio: 9/16;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.7);
   }
-  .promo-video-wrap iframe {
+  .promo-modal-box iframe {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     border: none;
   }
-  .promo-label {
-    font-family: 'Oswald', sans-serif;
-    font-size: 0.65rem;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--navy);
-    opacity: 0.55;
-    text-align: center;
+  .promo-modal-close {
+    position: absolute;
+    top: -44px;
+    right: 0;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    line-height: 1;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  @media (min-width: 640px) {
-    .promo-video-wrap { max-width: 280px; }
-  }
+  .promo-modal-close:hover { background: rgba(255,255,255,0.3); }
   .countdown-unit {
     display: flex;
     flex-direction: column;
@@ -1866,6 +1877,7 @@
       <button onclick="showPage('bracket')">Bracket</button>
       <button onclick="showPage('teams')">Teams</button>
       <button onclick="showPage('rules')">Rules</button>
+      <button onclick="openPromoModal()">🎬 Promo</button>
       <button class="admin-btn" onclick="openAdminLogin()" id="desktop-admin-btn" style="display:none;">Admin ⚙</button>
     </nav>
   </div>
@@ -1895,6 +1907,9 @@
     </button>
     <button onclick="showPage('rules')" id="bnav-rules">
       <span class="bnav-icon">📋</span>Rules
+    </button>
+    <button onclick="openPromoModal()" id="bnav-promo">
+      <span class="bnav-icon">🎬</span>Promo
     </button>
     <button class="bnav-admin" onclick="openAdminLogin()" id="bnav-admin" style="display:none;">
       <span class="bnav-icon">⚙</span>Admin
@@ -1940,22 +1955,6 @@
         <span class="event-pill">🏆 5 Teams Competing</span>
       </div>
     </div>
-
-    <!-- ===== PROMO VIDEO ===== -->
-    <div class="section-title">🎬 Tournament Promo</div>
-    <div class="promo-section">
-      <div class="promo-video-wrap">
-        <iframe
-          src="https://www.youtube.com/embed/mk1An3ENYH8?rel=0&playsinline=1"
-          title="DPSC Spring 2026 Volleyball Tournament Promo"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
-      </div>
-      <div class="promo-label">DPSC Spring 2026 · Official Promo</div>
-    </div>
-    <!-- ===== END PROMO VIDEO ===== -->
 
     <div class="section-title">Weather Watch — Saturday, May 9</div>
     <div class="weather-widget" id="weather-widget">
@@ -4523,6 +4522,38 @@ If a question is outside the tournament scope, politely say you can only help wi
   });
 })();
 </script>
+
+<!-- ===== PROMO VIDEO MODAL ===== -->
+<div class="promo-modal-overlay" id="promo-modal" onclick="closePromoModal(event)">
+  <div class="promo-modal-box">
+    <button class="promo-modal-close" onclick="closePromoModal()" title="Close">✕</button>
+    <iframe
+      id="promo-iframe"
+      src=""
+      title="DPSC Spring 2026 Volleyball Tournament Promo"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+<script>
+  function openPromoModal() {
+    document.getElementById('promo-iframe').src =
+      'https://www.youtube.com/embed/mk1An3ENYH8?rel=0&playsinline=1&autoplay=1';
+    document.getElementById('promo-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePromoModal(e) {
+    if (e && e.target !== document.getElementById('promo-modal')) return;
+    document.getElementById('promo-iframe').src = '';
+    document.getElementById('promo-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closePromoModal();
+  });
+</script>
+<!-- ===== END PROMO VIDEO MODAL ===== -->
 
 </body>
 </html>
