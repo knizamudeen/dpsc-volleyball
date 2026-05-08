@@ -4185,14 +4185,30 @@ renderHomePage();
     }).join('\n');
 
     const matchesBlock = matchData.map(m => {
+      const ump = m.umpire ? ` | Umpire: ${m.umpire}` : '';
+      const timeInfo = m.time ? ` @ ${m.time}` : '';
+      const courtInfo = m.court && m.court !== 'TBD' ? ` (${m.court})` : '';
       if (m.status === 'completed') {
-        return `  [COMPLETED] ${m.roundLabel}: ${tName(m.team1)} ${m.score1}–${m.score2} ${tName(m.team2)}`;
+        return `  [COMPLETED] ${m.roundLabel}${timeInfo}${courtInfo}: ${tName(m.team1)} ${m.score1}–${m.score2} ${tName(m.team2)}${ump}`;
       } else if (m.status === 'live') {
-        return `  [LIVE] ${m.roundLabel}: ${tName(m.team1)} vs ${tName(m.team2)}`;
+        return `  [LIVE] ${m.roundLabel}${timeInfo}${courtInfo}: ${tName(m.team1)} vs ${tName(m.team2)}${ump}`;
       } else {
-        return `  [PENDING] ${m.roundLabel}: ${tName(m.team1)} vs ${tName(m.team2)}`;
+        return `  [PENDING] ${m.roundLabel}${timeInfo}${courtInfo}: ${tName(m.team1)} vs ${tName(m.team2)}${ump}`;
       }
     }).join('\n');
+
+    const umpireTeams = [
+      { team: 'Billa',               umpires: ['Madhani', 'Noufal']    },
+      { team: 'Thudikkum Karangal',  umpires: ['Salim',   'Nivas']     },
+      { team: 'Paayum Puli',         umpires: ['Shahul',  'Tanveer']   },
+      { team: 'Murattu Kaalai',      umpires: ['Baks',    'Haleel']    },
+      { team: 'Kazhugu',             umpires: ['Younus',  'Shahjahan'] },
+    ];
+    const umpireRosterBlock = umpireTeams.map(u => `  ${u.team}: ${u.umpires.join(', ')}`).join('\n');
+    const umpireMatchBlock  = matchData
+      .filter(m => m.umpire)
+      .map(m => `  ${m.roundLabel} (${m.time || ''}${m.court && m.court !== 'TBD' ? ', ' + m.court : ''}): ${tName(m.team1)} vs ${tName(m.team2)} → Umpire: ${m.umpire}`)
+      .join('\n');
 
     return `You are the official AI assistant for the DPSC Spring 2026 Sand Volleyball Tournament.
 Answer questions accurately and concisely using the data below. Keep responses brief but complete.
@@ -4219,6 +4235,13 @@ ${rostersBlock}
 
 === ALL MATCHES ===
 ${matchesBlock}
+
+=== UMPIRE ASSIGNMENTS ===
+Each team's designated umpires (two per team):
+${umpireRosterBlock}
+
+Match-by-match umpire assignments:
+${umpireMatchBlock}
 
 === GAME RULES ===
 ${rulesBlock}
