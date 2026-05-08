@@ -1286,7 +1286,6 @@
     nav button { font-size: 0.7rem; padding: 6px 10px; }
     main { padding: 14px; }
     .hero { padding: 28px 16px; }
-    .score-entry-row { grid-template-columns: 1fr; }
     .vs-label { display: none; }
   }
 
@@ -1759,20 +1758,29 @@
 
     /* Admin forms */
     .form-grid { grid-template-columns: 1fr; gap: 12px; }
-    .score-entry-row { grid-template-columns: 1fr 30px 1fr; gap: 8px; }
-    .score-entry-row > * { min-width: 0; }
     .score-input-big { font-size: 1.6rem; padding: 10px 8px; }
-    /* Set-row: move label to its own row so both inputs get equal 1fr */
+
+    /* Score entry row — flex so both inputs always get equal space */
+    .score-entry-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
+    .score-entry-row > div:not(.vs-label) { flex: 1; min-width: 0; }
+    .score-entry-row > .vs-label { display: none; }
+
+    /* Set row — label full-width on its own line, then equal inputs */
     .set-row {
-      grid-template-columns: 1fr 24px 1fr;
-      grid-template-rows: auto auto;
-      row-gap: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
     }
-    .set-row .set-label {
-      grid-column: 1 / -1;
-      grid-row: 1;
-    }
-    .set-row > div { grid-row: 2; min-width: 0; }
+    .set-row > .set-label { flex: 0 0 100%; }
+    .set-row > div:nth-child(2),
+    .set-row > div:nth-child(4) { flex: 1; min-width: 0; }
+    .set-row > div:nth-child(3) { flex: 0 0 20px; text-align: center; }
     .set-score-input { font-size: 1.2rem; padding: 7px 8px; width: 100%; }
 
     /* Modal bottom sheet */
