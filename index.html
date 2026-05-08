@@ -1656,6 +1656,12 @@
     z-index: 100;
     padding: 0;
     box-shadow: 0 -4px 20px rgba(26,46,74,0.1);
+    /* iOS Safari: force GPU layer to prevent nav drifting during scroll */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+    /* Safe area padding for notch/home indicator */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
   .bottom-nav-inner {
@@ -1694,7 +1700,7 @@
   }
 
   /* Safe area for bottom nav */
-  .bottom-nav-spacer { display: none; height: 72px; }
+  .bottom-nav-spacer { display: none; height: calc(72px + env(safe-area-inset-bottom, 0px)); }
 
   @media (max-width: 768px) {
     /* Show bottom nav, hide top nav */
