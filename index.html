@@ -2514,31 +2514,31 @@ const TEAMS = [
 
 const FINAL_SET_TARGETS = [18, 18, 21];
 
-function makeMatch(id, round, roundLabel, t1, t2, format='single', time='', court='') {
+function makeMatch(id, round, roundLabel, t1, t2, format='single', time='', court='', umpire='') {
   return {
     id, round, roundLabel, team1: t1, team2: t2, format,
     score1: null, score2: null,
     sets: (format === 'bo3' || format === 'final') ? [{s1:null,s2:null},{s1:null,s2:null},{s1:null,s2:null}] : null,
     status: 'pending',
-    time, court
+    time, court, umpire
   };
 }
 
 const DEFAULT_MATCHES = [
-  makeMatch('rr-1','rr','Round Robin','kz','pp','single','07:00 AM','Court 1'),
-  makeMatch('rr-2','rr','Round Robin','mk','tk','single','07:00 AM','Court 2'),
-  makeMatch('rr-3','rr','Round Robin','bi','kz','single','07:30 AM','Court 1'),
-  makeMatch('rr-4','rr','Round Robin','pp','mk','single','07:30 AM','Court 2'),
-  makeMatch('rr-5','rr','Round Robin','tk','bi','single','08:00 AM','Court 1'),
-  makeMatch('rr-6','rr','Round Robin','kz','tk','single','08:30 AM','Court 1'),
-  makeMatch('rr-7','rr','Round Robin','pp','bi','single','08:30 AM','Court 2'),
-  makeMatch('rr-8','rr','Round Robin','mk','kz','single','09:00 AM','Court 1'),
-  makeMatch('rr-9','rr','Round Robin','tk','pp','single','09:00 AM','Court 2'),
-  makeMatch('rr-10','rr','Round Robin','bi','mk','single','09:30 AM','Court 1'),
+  makeMatch('rr-1', 'rr','Round Robin','kz','pp','single','07:00 AM','Court 1','Madhani'),
+  makeMatch('rr-2', 'rr','Round Robin','mk','tk','single','07:00 AM','Court 2','Noufal'),
+  makeMatch('rr-3', 'rr','Round Robin','bi','kz','single','07:30 AM','Court 1','Salim'),
+  makeMatch('rr-4', 'rr','Round Robin','pp','mk','single','07:30 AM','Court 2','Nivas'),
+  makeMatch('rr-5', 'rr','Round Robin','tk','bi','single','08:00 AM','Court 1','Younus'),
+  makeMatch('rr-6', 'rr','Round Robin','kz','tk','single','08:30 AM','Court 1','Baks'),
+  makeMatch('rr-7', 'rr','Round Robin','pp','bi','single','08:30 AM','Court 2','Haleel'),
+  makeMatch('rr-8', 'rr','Round Robin','mk','kz','single','09:00 AM','Court 1','Madhani'),
+  makeMatch('rr-9', 'rr','Round Robin','tk','pp','single','09:00 AM','Court 2','Noufal'),
+  makeMatch('rr-10','rr','Round Robin','bi','mk','single','09:30 AM','Court 1','Shahul'),
   makeMatch('elim-a','elim','Eliminator A','','','single','~10:15 AM','TBD'),
   makeMatch('elim-b','elim','Eliminator B','','','single','~10:15 AM','TBD'),
-  makeMatch('sf','sf','Semifinal','','','single','~10:45 AM','TBD'),
-  makeMatch('final','final','Grand Final','','','final','~11:00 AM','TBD'),
+  makeMatch('sf',   'sf', 'Semifinal',   '','','single','~10:45 AM','TBD'),
+  makeMatch('final','final','Grand Final','','','final', '~11:00 AM','TBD'),
 ];
 
 let matchData = DEFAULT_MATCHES.map(m => ({...m, sets: m.sets ? m.sets.map(s=>({...s})) : null}));
@@ -2980,6 +2980,7 @@ function matchCardHTML(m, adminMode=false) {
       <span class="match-status status-${m.status}">${m.status}</span>
     </div>
     ${m.court && m.court !== 'TBD' ? `<div style="padding:4px 14px 0;font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:1px;color:#3498DB;">🏟 ${m.court}</div>` : ''}
+    ${m.umpire ? `<div style="padding:2px 14px 0;font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:1px;color:var(--text-muted);">🟡 Umpire: ${m.umpire}</div>` : ''}
     <div class="match-body">
       <div class="team-side">
         <div class="team-name">${t1?`<span class="team-color dot-${t1.colorClass}"></span>`:''} ${n1}</div>
@@ -3541,6 +3542,7 @@ function renderSchedule() {
         ${t2?`<span class="team-color dot-${t2.colorClass}"></span>`:''}
         <span class="team-vs">${n2}</span>
         ${scoreBadge}
+        ${m.umpire ? `<div style="font-size:0.65rem;color:var(--text-muted);margin-top:2px;">🟡 ${m.umpire}</div>` : ''}
       </div>`;
     }).join('') + `</td>`;
   }
