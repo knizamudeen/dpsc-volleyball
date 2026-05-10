@@ -3168,7 +3168,7 @@ function renderTeams() {
 function renderHomePage() {
   updatePlayoffSeeds();
   renderStandingsTable('home-standings-wrap');
-  const recent = matchData.filter(m => m.status === 'completed').slice(-4);
+  const recent = matchData.filter(m => m.status === 'completed').slice(-4).reverse();
   const upcoming = matchData.filter(m => m.status !== 'completed').slice(0, 2);
   const cards = [...recent, ...upcoming];
   document.getElementById('home-recent-matches').innerHTML = cards.length ? cards.map(m => matchCardHTML(m)).join('') : '<p style="color:var(--grey); padding:20px;">No results yet. Tournament starts May 9!</p>';
