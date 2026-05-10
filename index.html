@@ -1737,11 +1737,11 @@
     0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
-  /* On mobile push ticker above bottom nav */
+  /* On mobile: ticker sits at very bottom, nav sits above it */
   @media (max-width: 768px) {
-    .champion-ticker { bottom: calc(56px + env(safe-area-inset-bottom, 0px)); }
+    .champion-ticker { bottom: 0; z-index: 101; }
     .bottom-nav { bottom: 28px; }
-    .bottom-nav-spacer { height: calc(100px + env(safe-area-inset-bottom, 0px)); }
+    .bottom-nav-spacer { height: calc(84px + env(safe-area-inset-bottom, 0px)); }
   }
 
   @media (max-width: 768px) {
@@ -4083,8 +4083,8 @@ renderHomePage();
   #chat-send:disabled { opacity: 0.45; cursor: not-allowed; }
 
   @media (max-width: 420px) {
-    #chat-fab   { bottom: 80px; right: 14px; }
-    #chat-panel { width: calc(100vw - 16px); right: 8px; bottom: 150px; border-radius: 14px; }
+    #chat-fab   { bottom: 110px; right: 14px; }
+    #chat-panel { width: calc(100vw - 16px); right: 8px; bottom: 180px; border-radius: 14px; }
   }
 </style>
 
