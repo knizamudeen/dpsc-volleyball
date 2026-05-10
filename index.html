@@ -1702,6 +1702,48 @@
   /* Safe area for bottom nav */
   .bottom-nav-spacer { display: none; height: calc(72px + env(safe-area-inset-bottom, 0px)); }
 
+  /* Champion ticker */
+  .champion-ticker {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 99;
+    background: linear-gradient(90deg, #1a2e4a 0%, #C0901A 50%, #1a2e4a 100%);
+    color: #fff;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  .champion-ticker-inner {
+    display: flex;
+    white-space: nowrap;
+    animation: tickerScroll 22s linear infinite;
+    gap: 0;
+  }
+  .champion-ticker-inner span {
+    padding: 0 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .champion-ticker-inner .sep { opacity: 0.4; }
+  @keyframes tickerScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  /* On mobile push ticker above bottom nav */
+  @media (max-width: 768px) {
+    .champion-ticker { bottom: calc(56px + env(safe-area-inset-bottom, 0px)); }
+    .bottom-nav { bottom: 28px; }
+    .bottom-nav-spacer { height: calc(100px + env(safe-area-inset-bottom, 0px)); }
+  }
+
   @media (max-width: 768px) {
     /* Show bottom nav, hide top nav */
     .bottom-nav { display: block; }
@@ -1943,21 +1985,13 @@
 </nav>
 
 <!-- TOURNAMENT STATUS ALERT -->
-<div class="tournament-alert" role="alert" aria-live="polite">
+<div class="tournament-alert" role="alert" aria-live="polite" style="background:linear-gradient(90deg,#1a2e4a 0%,#7B2D8B 40%,#C0901A 100%);">
   <div class="alert-inner">
     <div class="alert-text">
-      <div class="alert-title">⚡ Game Day is Almost Here!</div>
-      <div class="alert-body">5 teams. 1 champion. <strong>Saturday, May 9th</strong> at Russell Creek Volleyball Courts — it's time to bring the heat, hit the sand, and leave it all on the court! 🏐🔥</div>
+      <div class="alert-title" style="font-size:1.1rem;">🏆 DPSC Spring 2026 Champions — Kazhugu!</div>
+      <div class="alert-body">An incredible tournament! Congratulations to <strong>Kazhugu</strong> for claiming the DPSC Spring 2026 Sand Volleyball Championship. Glory to the champs! 🏐🥇🎉</div>
     </div>
-    <div class="alert-countdown" id="alert-countdown">
-      <div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-label">Days</span></div>
-      <div class="countdown-sep">:</div>
-      <div class="countdown-unit"><span class="countdown-num" id="cd-hrs">--</span><span class="countdown-label">Hrs</span></div>
-      <div class="countdown-sep">:</div>
-      <div class="countdown-unit"><span class="countdown-num" id="cd-min">--</span><span class="countdown-label">Min</span></div>
-      <div class="countdown-sep">:</div>
-      <div class="countdown-unit"><span class="countdown-num" id="cd-sec">--</span><span class="countdown-label">Sec</span></div>
-    </div>
+    <div style="flex-shrink:0;font-size:2.8rem;line-height:1;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.4));animation:trophySpin 2s ease-in-out infinite alternate;">🏆</div>
   </div>
 </div>
 
@@ -4610,6 +4644,31 @@ If a question is outside the tournament scope, politely say you can only help wi
   });
 })();
 </script>
+
+<!-- ===== CHAMPION TICKER ===== -->
+<div class="champion-ticker" aria-label="Champions celebration ticker">
+  <div class="champion-ticker-inner">
+    <span>🏆 DPSC Spring 2026 Champions</span><span class="sep">·</span>
+    <span>🥇 Suja <em style="opacity:0.6;font-style:normal;font-size:0.65rem;">(Captain)</em></span><span class="sep">·</span>
+    <span>⭐ Faridh</span><span class="sep">·</span>
+    <span>⭐ MMK</span><span class="sep">·</span>
+    <span>⭐ Nizam</span><span class="sep">·</span>
+    <span>⭐ Nizam MS</span><span class="sep">·</span>
+    <span>⭐ Shahjahan</span><span class="sep">·</span>
+    <span>⭐ Younus</span><span class="sep">·</span>
+    <span>🎉 Congratulations Kazhugu!</span><span class="sep">·</span>
+    <span>🏆 DPSC Spring 2026 Champions</span><span class="sep">·</span>
+    <span>🥇 Suja <em style="opacity:0.6;font-style:normal;font-size:0.65rem;">(Captain)</em></span><span class="sep">·</span>
+    <span>⭐ Faridh</span><span class="sep">·</span>
+    <span>⭐ MMK</span><span class="sep">·</span>
+    <span>⭐ Nizam</span><span class="sep">·</span>
+    <span>⭐ Nizam MS</span><span class="sep">·</span>
+    <span>⭐ Shahjahan</span><span class="sep">·</span>
+    <span>⭐ Younus</span><span class="sep">·</span>
+    <span>🎉 Congratulations Kazhugu!</span><span class="sep">·</span>
+  </div>
+</div>
+<!-- ===== END CHAMPION TICKER ===== -->
 
 <!-- ===== PROMO VIDEO MODAL ===== -->
 <div class="promo-modal-overlay" id="promo-modal" onclick="closePromoModal(event)">
